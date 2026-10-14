@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>陽明山經典縱走指南 V1.1 - 2026今展福委會秋系戶外手札</title>
+  <title>陽明山經典縱走指南 V1.2 - 2026今展福委會秋系戶外手札</title>
 
   <!-- GitHub Pages SEO & Social Sharing Open Graph Meta Tags -->
-  <meta name="description" content="2026今展福委會秋系戶外手札 - 陽明山七星山主東縱走、夢幻雞心崙與草嶺古道互動手冊。內建等高走勢、步程配速調節器、離線GPX匯出與交通撤退全指南。">
-  <meta name="keywords" content="陽明山, 七星山, 夢幻湖, 冷水坑, 擎天崗, 草嶺古道, 健行路線, 健行指南, 今展福委會, GPX下載">
+  <meta name="description" content="2026今展福委會秋系戶外手札 - 陽明山七星山主東縱走、夢幻雞心崙與草嶺古道互動手冊 (V1.2)。內建正走與逆走交通雙向指引、等高走勢、步程配速調節器、離線GPX匯出與緊急撤退指南。">
+  <meta name="keywords" content="陽明山, 七星山, 夢幻湖, 冷水坑, 擎天崗, 草嶺古道, 健行路線, 健行指南, 今展福委會, GPX下載, 逆走交通">
   <meta name="author" content="2026 今展福委會">
   <meta name="theme-color" content="#394A3D">
 
   <!-- Open Graph / LINE / Facebook / Slack Rich Preview -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_TW">
-  <meta property="og:title" content="陽明山經典縱走指南 V1.1 - 2026今展福委會秋系戶外手札">
-  <meta property="og:description" content="三條經典健行路線互動式導覽：等高剖面走勢、動態腳程調節器、交通接駁與離線 GPX 匯出。">
+  <meta property="og:title" content="陽明山經典縱走指南 V1.2 - 2026今展福委會秋系戶外手札">
+  <meta property="og:description" content="三條經典健行路線互動式導覽：新增擎天崗起登逆走交通指南、等高剖面走勢、動態腳程調節器與離線 GPX 匯出。">
   <meta property="og:site_name" content="今展福委會秋系戶外手札">
 
-  <!-- Inline SVG Favicon (No external asset needed, avoids GitHub Pages 404) -->
+  <!-- Inline SVG Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23394A3D'/><path d='M20 72 L42 34 L56 54 L68 38 L84 72 Z' fill='%23C98D2C'/><circle cx='74' cy='28' r='8' fill='%23BD5738'/></svg>" type="image/svg+xml">
 
-  <!-- Tailwind CSS Play CDN (Optimized for single-file static host) -->
+  <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Chart.js for Elevation Profile -->
@@ -133,7 +133,6 @@
       background: #8C7A6B;
     }
 
-    /* 熱力圖風格滑桿軌道與浮動鈕樣式 */
     .heatmap-slider {
       -webkit-appearance: none;
       appearance: none;
@@ -201,7 +200,7 @@
         <div>
           <div class="flex items-center gap-2.5">
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-cream-50 flex items-center gap-2">
-              陽明山經典縱走指南 <span class="text-xs bg-mustard text-charcoal font-black px-2 py-0.5 rounded-md shadow-xs">V1.1</span>
+              陽明山經典縱走指南 <span class="text-xs bg-mustard text-charcoal font-black px-2 py-0.5 rounded-md shadow-xs">V1.2</span>
             </h1>
             <span id="route-badge-indicator" class="text-xs bg-rust text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs">秋芒健行季</span>
           </div>
@@ -410,13 +409,11 @@
           <div class="topo-map-bg p-3 sm:p-5 flex items-center justify-center overflow-hidden">
             <svg id="trailSvg" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet" class="w-full h-auto max-w-full block select-none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <!-- Subtle Topo Contour Pattern -->
                 <pattern id="contourPattern" width="120" height="120" patternUnits="userSpaceOnUse">
                   <path d="M 0,40 Q 30,20 60,40 T 120,40 M 0,80 Q 40,95 80,75 T 120,85 M 0,115 Q 60,100 120,115" 
                         fill="none" stroke="#DBCFBC" stroke-width="0.8" opacity="0.35"/>
                 </pattern>
 
-                <!-- Route 1 Trail Gradient -->
                 <linearGradient id="autumnTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#BD5738" />
                   <stop offset="25%" stop-color="#394A3D" />
@@ -424,7 +421,6 @@
                   <stop offset="100%" stop-color="#394A3D" />
                 </linearGradient>
 
-                <!-- Route 2 Chill Trail Gradient -->
                 <linearGradient id="chillTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#4A7B82" />
                   <stop offset="30%" stop-color="#52796F" />
@@ -432,7 +428,6 @@
                   <stop offset="100%" stop-color="#DDA15E" />
                 </linearGradient>
 
-                <!-- Route 3 Ocean Trail Gradient -->
                 <linearGradient id="oceanTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#2D5A7B" />
                   <stop offset="35%" stop-color="#3C7A89" />
@@ -440,16 +435,13 @@
                   <stop offset="100%" stop-color="#2D5A7B" />
                 </linearGradient>
 
-                <!-- Natural Soft Shadow -->
                 <filter id="woodShadow" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#33312E" flood-opacity="0.18"/>
                 </filter>
               </defs>
 
-              <!-- Topo Contours Fill -->
               <rect width="100%" height="100%" fill="url(#contourPattern)" />
 
-              <!-- Mountain Ranges Backdrop -->
               <g opacity="0.35" stroke="#C8BCAE" stroke-width="1.2" fill="#EFE8DA">
                 <polygon points="120,270 235,90 330,270" fill="#E8DEC9" />
                 <polyline points="235,90 235,270" stroke="#BAAEA0" stroke-width="1" />
@@ -457,13 +449,11 @@
                 <polygon points="580,360 680,240 780,360" fill="#E9E0CD" />
               </g>
 
-              <!-- Regional Contour Zones -->
               <path id="svg-zone-qixing" d="M 100,210 C 150,80 340,65 420,135 C 440,210 350,260 230,250 C 150,240 80,230 100,210 Z" 
                     fill="#E9EFEA" stroke="#B7C9BB" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.8"/>
               <ellipse id="svg-zone-menghuan" cx="500" cy="275" rx="55" ry="32" fill="#F4EFEB" stroke="#D3C7BD" stroke-width="1.2" stroke-dasharray="4 3"/>
               <ellipse id="svg-zone-qingtiangang" cx="945" cy="360" rx="70" ry="46" fill="#FBF4E6" stroke="#DE9F38" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
 
-              <!-- Regional Region Title Banners (Moved to clean margins to prevent overlap) -->
               <text id="svg-txt-qixing" x="260" y="32" text-anchor="middle" font-size="13" fill="#394A3D" font-weight="700" letter-spacing="1">
                 【七星山系高海拔稜線】
               </text>
@@ -474,7 +464,6 @@
                 擎天崗草原台地
               </text>
 
-              <!-- Compass Rose -->
               <g transform="translate(975, 45)">
                 <circle cx="0" cy="0" r="21" fill="#FAF6EE" stroke="#B4A597" stroke-width="1.5" filter="url(#woodShadow)" />
                 <polygon points="0,-16 4.5,-2 0,0" fill="#BD5738" />
@@ -486,7 +475,6 @@
                 <text x="0" y="-18" text-anchor="middle" font-size="9.5" font-weight="800" fill="#BD5738">N</text>
               </g>
 
-              <!-- DYNAMIC TRAIL CONTAINERS: Rendered via JavaScript -->
               <g id="svg-paths-container"></g>
               <g id="svg-distances-container"></g>
               <g id="svg-nodes-container"></g>
@@ -545,7 +533,6 @@
               <span>點選任意站點卡片，地圖將平移特寫並鎖定標記。</span>
             </div>
 
-            <!-- List populated dynamically by JavaScript -->
             <div id="waypoint-list-container" class="space-y-3"></div>
           </div>
 
@@ -603,14 +590,14 @@
         <i class="fa-solid fa-leaf text-mustard-light"></i> 2026今展福委會
       </span>
       <span class="hidden sm:inline opacity-40">•</span>
-      <span class="font-medium text-cream-50">加入今展，一路平坦（手札指南 V1.1）</span>
+      <span class="font-medium text-cream-50">加入今展，一路平坦（手札指南 V1.2）</span>
       <span class="hidden sm:inline opacity-40">•</span>
       <span class="text-cream-200/70 text-[11px]">Take only pictures, leave only footprints no trash.</span>
     </div>
   </footer>
 
   <script>
-    // ROUTE 1 DATA: 小油坑-七星主峰-東峰-夢幻湖-冷水坑-菁山吊橋-擎天崗
+    // ROUTE 1 DATA
     const ROUTE_1_CONFIG = {
       id: "route1",
       name: "Route 1 主東縱走",
@@ -811,7 +798,7 @@
       ]
     };
 
-    // ROUTE 2 DATA: 小油坑-夢幻湖-冷水坑-菁山吊橋-雞心崙-擎天崗
+    // ROUTE 2 DATA
     const ROUTE_2_CONFIG = {
       id: "route2",
       name: "Route 2 夢幻雞心崙悠遊",
@@ -992,7 +979,7 @@
       ]
     };
 
-    // ROUTE 3 DATA: 草嶺古道（遠望坑梯田登山口版 - 重新校正座標與間距，杜絕文字疊蓋）
+    // ROUTE 3 DATA
     const ROUTE_3_CONFIG = {
       id: "route3",
       name: "Route 3 草嶺古道山海線",
@@ -1222,7 +1209,6 @@
       if (isRoute2) trailGradient = "url(#chillTrailGrad)";
       if (isRoute3) trailGradient = "url(#oceanTrailGrad)";
 
-      // Render Trail Path
       pathsContainer.innerHTML = `
         <path d="${currentRouteConfig.pathD}"
               fill="none" stroke="#FAF6EE" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
@@ -1232,7 +1218,6 @@
               fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="6 6" stroke-linecap="round"/>
       `;
 
-      // Render Distances with protective backdrop pill
       distContainer.innerHTML = currentRouteConfig.distances.map(d => `
         <g font-size="11.5" font-weight="700" text-anchor="middle">
           <rect x="${d.x - 25}" y="${d.y - 10}" width="50" height="20" rx="10" fill="#FAF6EE" stroke="${d.color}" stroke-width="1" filter="url(#woodShadow)"/>
@@ -1240,7 +1225,6 @@
         </g>
       `).join('');
 
-      // Render Nodes with optimal spacing, anti-overlap positioning, and legible halo
       nodesContainer.innerHTML = currentRouteConfig.waypoints.map(wp => {
         const isPeak = wp.badge === "最高峰" || wp.badge === "最高鞍部";
         const pinRadius = isPeak ? 15 : 13;
@@ -1250,18 +1234,14 @@
           <g class="svg-node" id="svg-node-${wp.id}" data-id="${wp.id}">
             <circle cx="${wp.svgX}" cy="${wp.svgY}" r="${pinRadius}" fill="${wp.color}" stroke="#FAF6EE" stroke-width="2.5" class="main-pin" filter="url(#woodShadow)"/>
             <text x="${wp.svgX}" y="${wp.svgY + 4.5}" fill="#FAF6EE" font-size="13.5" font-weight="bold" text-anchor="middle">${wp.id}</text>
-            
-            <!-- Text outline/halo for max legibility against terrain -->
             <text x="${wp.svgX}" y="${wp.textY}" font-size="13.5" font-weight="800" fill="#FAF6EE" stroke="#FAF6EE" stroke-width="3.5" stroke-linejoin="round" text-anchor="middle">${displayName}</text>
             <text x="${wp.svgX}" y="${wp.textY}" font-size="13.5" font-weight="800" fill="#33312E" text-anchor="middle">${displayName}</text>
-            
             <rect x="${wp.svgX - 48}" y="${wp.badgeY - 14}" width="96" height="19" rx="4.5" fill="#FAF6EE" stroke="${wp.color}" stroke-width="1" filter="url(#woodShadow)"/>
             <text x="${wp.svgX}" y="${wp.badgeY}" font-size="11" fill="${wp.color}" font-weight="700" text-anchor="middle">${wp.alt}m • ${wp.badge}</text>
           </g>
         `;
       }).join('');
 
-      // Attach Node Click Listeners
       document.querySelectorAll('.svg-node').forEach(node => {
         node.addEventListener('click', () => {
           const id = parseInt(node.getAttribute('data-id'), 10);
@@ -1541,126 +1521,113 @@
           </div>
         `;
       } else {
-        // Render Route 1 / 2 transit content
+        // Render Route 1 / 2 transit content with both Normal and Reverse directions
         if (typeBanner) {
           typeBanner.className = "bg-rust-pale border border-rust/30 rounded-xl p-3 text-rust-dark flex items-center justify-between";
-          typeText.textContent = "單向縱走行程（小油坑起點 ➔ 擎天崗終點）";
+          typeText.textContent = "單向縱走行程（支援正向小油坑起登 / 逆向擎天崗起登）";
           typeBadge.className = "text-[11px] bg-cream-50 text-rust font-semibold px-2 py-0.5 rounded-md border border-rust/20";
-          typeBadge.textContent = "不走回頭路";
+          typeBadge.textContent = "雙向指南 V1.2";
         }
 
         container.innerHTML = `
-          <!-- 一、去程交通 -->
+          <!-- ★★★ 新增：逆走專屬規劃指南 ★★★ -->
+          <div class="border-2 border-rust/60 rounded-xl p-3.5 bg-rust-pale/60 shadow-xs">
+            <div class="flex items-center justify-between border-b border-rust/30 pb-2 mb-2.5">
+              <h4 class="font-bold text-rust-dark text-sm flex items-center gap-2">
+                <i class="fa-solid fa-arrow-right-arrow-left text-rust"></i> 【方案 A：逆走指引】擎天崗起登 ➔ 小油坑結束
+              </h4>
+              <span class="text-[10px] bg-rust text-white font-bold px-2 py-0.5 rounded-md">推薦團體集合</span>
+            </div>
+
+            <div class="space-y-2.5 text-charcoal">
+              <!-- 去程 -->
+              <div class="bg-cream-50 p-2.5 rounded-lg border border-rust/30">
+                <div class="font-bold text-rust-dark flex items-center justify-between mb-1">
+                  <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-bus text-xs text-rust"></i> 1. 去程乘車（捷運劍潭站 ➔ 擎天崗）
+                  </span>
+                  <span class="text-[10px] bg-rust-pale text-rust font-semibold px-1.5 py-0.2 rounded">直達免轉乘</span>
+                </div>
+                <ul class="text-[11px] text-charcoal space-y-1 list-disc list-inside leading-relaxed">
+                  <li><strong>乘車方式</strong>：於捷運劍潭站搭乘 <strong>小15（首都客運）</strong> 直達擎天崗。去程免轉乘，大幅簡化早晨集合與點名流程。</li>
+                  <li><strong>劍潭端平日參考班次</strong>：<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">07:40</code>、<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">08:00</code>、<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">08:20</code>、<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">08:40</code>。</li>
+                  <li><strong>約 40 人團體分流建議</strong>：小15 單一班次載客量有限，切勿承諾全團搭同一班車！建議採<strong>分批上車</strong>（例如分流為 08:00 與 08:20 兩批），先抵達擎天崗者於指定地點（如遊客服務站走廊）等候，全員會合完成點名後統一啟程。</li>
+                </ul>
+              </div>
+
+              <!-- 回程 -->
+              <div class="bg-cream-50 p-2.5 rounded-lg border border-rust/30">
+                <div class="font-bold text-forest flex items-center justify-between mb-1">
+                  <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-left text-xs text-forest"></i> 2. 回程乘車（小油坑 ➔ 捷運劍潭站）
+                  </span>
+                  <span class="text-[10px] bg-forest-pale text-forest font-semibold px-1.5 py-0.2 rounded">兩段轉乘</span>
+                </div>
+                <div class="text-[11px] text-charcoal space-y-1 leading-relaxed">
+                  <p>• <strong>第一段</strong>：於「小油坑服務站」搭乘 <strong>108 全程車</strong> 至「陽明山公車總站」。</p>
+                  <p>• <strong>第二段</strong>：於陽明山公車總站轉乘 <strong>紅5</strong> 返回「捷運劍潭站」。</p>
+                  <div class="mt-1.5 p-2 bg-mustard-pale rounded border border-mustard/40 text-[10.5px] text-charcoal space-y-0.5">
+                    <p class="font-bold text-mustard-light"><i class="fa-solid fa-triangle-exclamation"></i> 關鍵回程提醒：</p>
+                    <p>① <strong>108 環狀線繞行</strong>：從小油坑搭 108 返總站係沿園區環狀路線行駛（經二子坪、竹子湖），非直線下山，需預留較長車程時間。</p>
+                    <p>② <strong>班距與候車安排</strong>：108 平日班距約 30–40 分鐘，建議將 <strong>約 13:00 定義為「完成點名並開始分組候車」</strong>，抵達劍潭時間須視當日班距與轉車狀況寬估。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 自駕與綜合評估 -->
+              <div class="bg-cream-50 p-2.5 rounded-lg border border-rust/30 text-[11px] space-y-1">
+                <div class="font-bold text-charcoal flex items-center gap-1.5 mb-0.5">
+                  <i class="fa-solid fa-car text-xs text-mustard"></i> 3. 逆走自駕團員取車動線：
+                </div>
+                <p>• <strong>車停擎天崗（起點）</strong>：健行結束後，需從小油坑搭乘 <strong>108 環狀線</strong> 車次回到擎天崗取車。</p>
+                <p>• <strong>車停小油坑（終點）</strong>：早晨需自行先前往擎天崗集合會合，健行抵達終點後可直接取車下山。</p>
+                <div class="mt-1 pt-1.5 border-t border-cream-300 text-[10.5px] text-rust-dark font-medium">
+                  <strong>4. 正反向交通綜合評估：</strong>
+                  去程直達免轉乘，大幅提升早晨集合效率；但<strong>改為逆向後，上下坡方向完全相反</strong>（東峰下切變連續登階爬升），步行時間與體能消耗需由領隊重新審視核對，不可直接套用原時程！
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 原方案：正向縱走（小油坑起登 ➔ 擎天崗終點） -->
           <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
             <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
               <h4 class="font-bold text-forest text-sm flex items-center gap-2">
-                <i class="fa-solid fa-circle-play text-forest"></i> 一、去程交通｜前往小油坑
+                <i class="fa-solid fa-compass text-forest"></i> 【方案 B：正向指引】小油坑起登 ➔ 擎天崗結束
               </h4>
-              <span class="text-[10px] bg-forest-pale text-forest font-semibold px-2 py-0.5 rounded-md">起點集合</span>
+              <span class="text-[10px] bg-forest-pale text-forest font-semibold px-2 py-0.5 rounded-md">原定路線</span>
             </div>
             
             <div class="space-y-2 text-charcoal leading-relaxed">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
                   <div class="font-bold text-forest flex items-center gap-1.5 mb-1">
-                    <i class="fa-solid fa-train-subway text-xs"></i> 捷運劍潭站
+                    <i class="fa-solid fa-train-subway text-xs"></i> 去程（劍潭站）
                   </div>
-                  <p class="text-[11.5px]">搭乘 <strong class="text-charcoal">紅5</strong> 至「陽明山總站」，轉乘 <strong class="text-rust">108 全程車</strong> 於「小油坑服務站」下車。</p>
+                  <p class="text-[11px]">搭 <strong class="text-charcoal">紅5</strong> 至陽明山總站，轉乘 <strong class="text-rust">108 全程車</strong> 至小油坑。</p>
                 </div>
                 <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
-                  <div class="font-bold text-forest flex items-center gap-1.5 mb-1">
-                    <i class="fa-solid fa-train text-xs"></i> 臺北車站（北二門）
+                  <div class="font-bold text-rust flex items-center gap-1.5 mb-1">
+                    <i class="fa-solid fa-flag-checkered text-xs"></i> 回程（擎天崗）
                   </div>
-                  <p class="text-[11.5px]">搭乘 <strong class="text-charcoal">260</strong> 至「陽明山總站」，轉乘 <strong class="text-rust">108 全程車</strong> 於「小油坑服務站」下車。</p>
+                  <p class="text-[11px]">搭乘 <strong class="text-rust">小15</strong> 直達捷運劍潭站；或搭 108 返總站轉紅5。</p>
                 </div>
               </div>
 
-              <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
-                <div class="font-bold text-charcoal flex items-center gap-1.5 mb-1">
-                  <i class="fa-solid fa-car text-xs text-mustard"></i> 自行開車（小油坑停車場）
-                </div>
-                <p class="text-[11.5px] text-taupe">直接導航至「小油坑遊客服務站停車場」（收費制）。假日易客滿，出發前建議查詢官方即時影像並提早抵達。</p>
-              </div>
-
-              <div class="bg-mustard-pale/80 border border-mustard/40 rounded-lg p-2.5 text-[11px] text-charcoal mt-1">
-                <div class="font-bold text-mustard-light flex items-center gap-1 mb-0.5">
-                  <i class="fa-solid fa-triangle-exclamation"></i> 108 乘車重要提醒：
-                </div>
-                <p>務必搭乘<strong>「108 全程車」</strong>；切勿搭乘僅至二子坪折返的<strong>「108 區間車」</strong>（區間車不經小油坑）。全程車班距平日約 30–40 分、假日約 20–30 分，請預留轉乘時間。</p>
+              <div class="bg-cream-50 p-2 rounded-lg border border-cream-300 text-[11px] text-taupe">
+                <strong>正向自駕取車提醒</strong>：擎天崗無法原路直達小油坑，需搭 108 至總站轉「108 全程車」回小油坑取車。
               </div>
             </div>
           </div>
 
-          <!-- 二、回程交通 -->
-          <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
-            <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
-              <h4 class="font-bold text-rust text-sm flex items-center gap-2">
-                <i class="fa-solid fa-flag-checkered text-rust"></i> 二、回程交通｜從擎天崗下山
-              </h4>
-              <span class="text-[10px] bg-rust-pale text-rust-dark font-semibold px-2 py-0.5 rounded-md">終點返程</span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-charcoal">
-              <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
-                <div class="font-bold text-rust-dark flex items-center gap-1.5 mb-1">
-                  <span class="bg-rust text-cream-50 text-[10px] px-1.5 py-0.2 rounded font-bold">方案 A</span>
-                  <span>小15 直達捷運劍潭站</span>
-                </div>
-                <p class="text-[11.5px] text-taupe">於「擎天崗」站搭乘首都客運 <strong>小15</strong> 直達捷運劍潭站。採固定班表，部分時段班距長，請預查即時動態。</p>
-              </div>
-
-              <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
-                <div class="font-bold text-forest flex items-center gap-1.5 mb-1">
-                  <span class="bg-forest text-cream-50 text-[10px] px-1.5 py-0.2 rounded font-bold">方案 B</span>
-                  <span>108 返總站 ➔ 轉車下山</span>
-                </div>
-                <p class="text-[11.5px] text-taupe">於「擎天崗」搭 <strong>108</strong> 經冷水坑返陽明山總站，再依目的地轉乘：<strong>紅5</strong>（往劍潭）或 <strong>260</strong>（往臺北車站）。</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 三、自駕取車指南 -->
-          <div class="border border-taupe/40 rounded-xl p-3.5 bg-taupe-pale">
-            <div class="flex items-center justify-between border-b border-taupe/30 pb-2 mb-2.5">
-              <h4 class="font-bold text-charcoal text-sm flex items-center gap-2">
-                <i class="fa-solid fa-key text-forest"></i> 三、自駕者注意｜返回小油坑取車
-              </h4>
-              <span class="text-[10px] bg-cream-50 text-charcoal font-semibold px-2 py-0.5 rounded-md border border-taupe/30">兩段轉乘</span>
-            </div>
-
-            <div class="space-y-1.5 mb-2.5 text-[11.5px]">
-              <div class="bg-cream-50 p-2 rounded-lg border border-cream-300 flex items-start gap-2">
-                <span class="w-5 h-5 rounded-full bg-forest text-cream-50 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
-                <div><strong>擎天崗 ➔ 陽明山總站：</strong>於擎天崗搭乘 108，經冷水坑坐至陽明山公車總站。</div>
-              </div>
-              <div class="bg-cream-50 p-2 rounded-lg border border-cream-300 flex items-start gap-2">
-                <span class="w-5 h-5 rounded-full bg-rust text-cream-50 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
-                <div><strong>陽明山總站 ➔ 小油坑：</strong>於總站轉搭 <strong>108 全程車</strong>（上車前向司機確認有停小油坑，勿搭區間車）。</div>
-              </div>
-              <div class="bg-cream-50 p-2 rounded-lg border border-cream-300 flex items-start gap-2">
-                <span class="w-5 h-5 rounded-full bg-mustard text-cream-50 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
-                <div><strong>小油坑服務站下車取車：</strong>步行至停車場繳費取車後自行下山。</div>
-              </div>
-            </div>
-
-            <div class="bg-cream-100 p-2.5 rounded-lg border border-cream-300/80 text-[11px] text-taupe space-y-1 leading-snug">
-              <div class="font-bold text-charcoal flex items-center gap-1 mb-1">
-                <i class="fa-solid fa-circle-exclamation text-rust"></i> 取車重要守則：
-              </div>
-              <p>• <strong>108 為單向環狀線</strong>：從擎天崗無法原路直反小油坑，<strong>必須至陽明山總站轉乘</strong>。</p>
-              <p>• 取車需耗費兩段公車繞行與候車時間，抵達終點後建議<strong>優先啟程取車</strong>。</p>
-              <p>• 108 官方公告營運時間為 07:00–17:30，非擎天崗站末班時間；請務必保留銜接餘裕，避免錯過往小油坑的全程末班車。</p>
-            </div>
-          </div>
-
-          <!-- 四、中途撤退與全體提醒 -->
+          <!-- 中途安全撤退點與乘車通則 -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <div class="border border-mustard/40 bg-mustard-pale rounded-xl p-3">
               <h5 class="font-bold text-mustard-light text-xs flex items-center gap-1.5 mb-1.5">
                 <i class="fa-solid fa-shield-heart text-mustard"></i> 中途安全撤退點（冷水坑）
               </h5>
               <p class="text-[11px] text-charcoal leading-relaxed">
-                若體力透支、膝蓋不適或遇驟雨濃霧，抵達<strong>冷水坑服務站（標高760m）</strong>時切勿勉強續行，可於此直接搭乘<strong>小15</strong>或<strong>108公車</strong>撤退下山。
+                不論正走或逆走，<strong>冷水坑服務站（標高760m）</strong>皆為最重要的中繼安全撤退點，可在此直接搭乘<strong>小15</strong>或<strong>108公車</strong>撤退下山。
               </p>
             </div>
 
@@ -1669,9 +1636,9 @@
                 <i class="fa-solid fa-bell text-forest"></i> 全體同仁乘車提醒
               </h5>
               <ul class="text-[11px] text-charcoal space-y-1 leading-relaxed list-disc list-inside">
-                <li>請攜帶<strong>悠遊卡 / 一卡通</strong>並確認餘額充足。</li>
-                <li>請使用「大臺北公車」App 查詢即時動態。</li>
-                <li>請寬估返程候車時間，切勿以末班車為預定搭乘班次。</li>
+                <li>請隨身攜帶<strong>悠遊卡 / 一卡通</strong>並儲值充足金額。</li>
+                <li>山區建議使用「大臺北公車」App 掌握即時班次動態。</li>
+                <li>團體人數較多時，請務必寬估候車與轉乘銜接時間。</li>
               </ul>
             </div>
           </div>
@@ -2091,7 +2058,6 @@
         document.body.appendChild(a);
         a.click();
         
-        // Timeout to allow mobile Safari on GitHub Pages to properly process download
         setTimeout(() => {
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
@@ -2112,7 +2078,6 @@
       renderChecklist();
       renderTransitTab();
 
-      // Route Switch Buttons Listeners
       const btnRoute1 = document.getElementById('btn-route-1');
       const btnRoute2 = document.getElementById('btn-route-2');
       const btnRoute3 = document.getElementById('btn-route-3');
@@ -2144,7 +2109,6 @@
         gpxBtn.addEventListener('click', generateGPX);
       }
 
-      // Hybrid Clipboard: Navigator API with execCommand fallback for GitHub Pages & iframes
       const copyMapBtn = document.getElementById('btn-copy-map-link');
       if (copyMapBtn) {
         copyMapBtn.addEventListener('click', async () => {
@@ -2186,7 +2150,6 @@
         });
       }
 
-      // Handle window resizing to keep charts crisp on mobile rotation
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
