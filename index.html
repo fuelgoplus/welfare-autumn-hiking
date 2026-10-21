@@ -1,34 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-TW" class="scroll-smooth">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>陽明山經典縱走指南 V1.2 - 2026今展福委會秋系戶外手札</title>
-
-  <!-- GitHub Pages SEO & Social Sharing Open Graph Meta Tags -->
-  <meta name="description" content="2026今展福委會秋系戶外手札 - 陽明山七星山主東縱走、夢幻雞心崙與草嶺古道互動手冊 (V1.2)。內建正走與逆走交通雙向指引、等高走勢、步程配速調節器、離線GPX匯出與緊急撤退指南。">
-  <meta name="keywords" content="陽明山, 七星山, 夢幻湖, 冷水坑, 擎天崗, 草嶺古道, 健行路線, 健行指南, 今展福委會, GPX下載, 逆走交通">
-  <meta name="author" content="2026 今展福委會">
-  <meta name="theme-color" content="#394A3D">
-
-  <!-- Open Graph / LINE / Facebook / Slack Rich Preview -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>草嶺古道與陽明山健行指南 V1.3 - 2026今展福委會秋系戶外手札</title>
+  
+  <!-- SEO & Social Open Graph Tags for GitHub Pages -->
+  <meta name="description" content="2026今展福委會秋系戶外健行手札 - 草嶺古道山海線（大里進、福隆出）與陽明山經典縱走指南 V1.3">
+  <meta property="og:title" content="草嶺古道與陽明山健行指南 V1.3 - 2026今展福委會">
+  <meta property="og:description" content="草嶺古道大里逆向穿越至福隆、陽明山經典縱走步道拓撲圖、高度剖面 Profile、熱力配速計算與交通指引。">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="zh_TW">
-  <meta property="og:title" content="陽明山經典縱走指南 V1.2 - 2026今展福委會秋系戶外手札">
-  <meta property="og:description" content="三條經典健行路線互動式導覽：新增擎天崗起登逆走交通指南、等高剖面走勢、動態腳程調節器與離線 GPX 匯出。">
-  <meta property="og:site_name" content="今展福委會秋系戶外手札">
+  <meta name="theme-color" content="#1E5B6E">
 
-  <!-- Inline SVG Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23394A3D'/><path d='M20 72 L42 34 L56 54 L68 38 L84 72 Z' fill='%23C98D2C'/><circle cx='74' cy='28' r='8' fill='%23BD5738'/></svg>" type="image/svg+xml">
+  <!-- Embedded SVG Favicon to avoid 404 in GitHub Pages -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231E5B6E'/%3E%3Cpath d='M6 24 L14 10 L18 16 L21 12 L26 24 Z' fill='%23FAF6EE'/%3E%3Ccircle cx='23' cy='9' r='3' fill='%23DE9F38'/%3E%3C/svg%3E">
 
-  <!-- Tailwind CSS Play CDN -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Chart.js for Elevation Profile -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <!-- Google Fonts: 思源黑體 Noto Sans TC -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +57,12 @@
               light: '#DE9F38',
               pale: '#FBF4E6'
             },
+            ocean: {
+              DEFAULT: '#1E5B6E',
+              light: '#2D758C',
+              dark: '#14404E',
+              pale: '#E6F0F3'
+            },
             plum: {
               DEFAULT: '#6B424A',
               pale: '#F4ECEE'
@@ -90,30 +90,27 @@
     body {
       background-color: #FAF6EE;
       color: #33312E;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .topo-map-bg {
       position: relative;
       background-color: #F8F3E8;
       background-image: 
-        radial-gradient(circle at 20% 30%, rgba(189, 87, 56, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(57, 74, 61, 0.06) 0%, transparent 60%);
+        radial-gradient(circle at 20% 30%, rgba(30, 91, 110, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(57, 74, 61, 0.05) 0%, transparent 60%);
       overflow: hidden;
     }
 
     .svg-node {
       cursor: pointer;
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
-      touch-action: manipulation;
     }
     .svg-node:hover, .svg-node.active-node {
-      filter: drop-shadow(0px 6px 14px rgba(57, 74, 61, 0.45));
+      filter: drop-shadow(0px 6px 12px rgba(30, 91, 110, 0.45));
     }
     .svg-node.active-node circle.main-pin {
-      stroke: #BD5738;
-      stroke-width: 4px;
+      stroke: #DE9F38;
+      stroke-width: 4.5px;
       transform: scale(1.18);
       transform-origin: center;
     }
@@ -133,100 +130,91 @@
       background: #8C7A6B;
     }
 
-    .heatmap-slider {
+    /* Heatmap slider custom track & thumb */
+    input[type=range].heatmap-slider {
       -webkit-appearance: none;
-      appearance: none;
-      height: 9px;
-      border-radius: 9999px;
-      background: linear-gradient(to right, #DC2626 0%, #EA580C 20%, #EAB308 42%, #0EA5E9 68%, #6366F1 85%, #6B21A8 100%);
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(to right, #DC2626 0%, #EA580C 20%, #EAB308 45%, #10B981 60%, #0EA5E9 75%, #6366F1 90%, #6B21A8 100%);
       outline: none;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.22);
-      transition: filter 0.2s ease;
-      touch-action: pan-y;
     }
-    .heatmap-slider:hover {
-      filter: brightness(1.05);
-    }
-    .heatmap-slider::-webkit-slider-thumb {
+    input[type=range].heatmap-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: var(--slider-thumb-color, #EAB308);
-      border: 2.5px solid #FFFFFF;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
+      background: #FAF6EE;
+      border: 3px solid #1E5B6E;
       cursor: pointer;
-      transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, border-color 0.2s ease;
     }
-    .heatmap-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.18);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
-    }
-    .heatmap-slider::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--slider-thumb-color, #EAB308);
-      border: 2.5px solid #FFFFFF;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
-      cursor: pointer;
+    input[type=range].heatmap-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
     }
 
     @media print {
-      header, .no-print, #toast, .route-switch-btn, #btn-export-gpx, #btn-print {
+      header button, .route-switch-btn, #btn-export-gpx, #btn-print, #pace-slider, details {
         display: none !important;
       }
       body {
-        background-color: #FFFFFF !important;
+        background-color: #FFF !important;
       }
-      .tab-panel {
-        display: block !important;
-      }
-      .lg\:h-\[890px\] {
-        height: auto !important;
+      .topo-map-bg {
+        background-color: #FFF !important;
       }
     }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col selection:bg-rust-pale selection:text-rust-dark">
+<body class="antialiased min-h-screen flex flex-col selection:bg-ocean-pale selection:text-ocean-dark">
 
   <header class="bg-forest text-cream-50 shadow-md sticky top-0 z-30 border-b-4 border-mustard">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap justify-between items-center gap-3">
       <div class="flex items-center space-x-3.5">
-        <div class="w-11 h-11 bg-cream-100/10 rounded-2xl border border-cream-200/20 flex items-center justify-center text-mustard shadow-inner shrink-0">
+        <div class="w-11 h-11 bg-cream-100/10 rounded-2xl border border-cream-200/20 flex items-center justify-center text-mustard shadow-inner">
           <i class="fa-solid fa-mountain-sun text-2xl"></i>
         </div>
         <div>
           <div class="flex items-center gap-2.5">
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-cream-50 flex items-center gap-2">
-              陽明山經典縱走指南 <span class="text-xs bg-mustard text-charcoal font-black px-2 py-0.5 rounded-md shadow-xs">V1.2</span>
+              草嶺古道與陽明山健行手札
             </h1>
-            <span id="route-badge-indicator" class="text-xs bg-rust text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs">秋芒健行季</span>
+            <span id="route-badge-indicator" class="text-xs bg-[#1E5B6E] text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs ring-1 ring-white/30">
+              主推路線 V1.3
+            </span>
           </div>
           <p id="route-header-subtitle" class="text-xs sm:text-sm text-cream-200/90 font-medium tracking-wide mt-0.5">
-            小油坑 ➔ 七星主峰 ➔ 七星東峰 ➔ 夢幻湖 ➔ 冷水坑 ➔ 菁山吊橋 ➔ 擎天崗
+            大里車站 ➔ 草嶺慶雲宮 ➔ 草嶺埡口 ➔ 虎字碑 ➔ 雄鎮蠻煙 ➔ 遠望坑 ➔ 虎子山街 ➔ 福隆車站
           </p>
         </div>
       </div>
       
       <div class="flex items-center flex-wrap gap-2.5">
         <!-- 路線切換 Segmented Switch -->
-        <div class="bg-forest-dark/80 p-1 rounded-xl border border-cream-200/20 flex items-center gap-1">
-          <button id="btn-route-1" class="route-switch-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-rust text-white shadow-xs">
-            Route 1 主東縱走
+        <div class="bg-forest-dark/80 p-1 rounded-xl border border-cream-200/20 flex flex-wrap items-center gap-1">
+          <button id="btn-route-1" class="route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-cream-300/50 hover:text-cream-100 hover:bg-white/10 opacity-60 hover:opacity-100 transition border border-dashed border-white/15" title="陽明山主東縱走（點擊仍可檢視完整資訊）">
+            <i class="fa-regular fa-eye-slash text-[10px] mr-1 opacity-70"></i>Route 1 主東縱走
           </button>
-          <button id="btn-route-2" class="route-switch-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-cream-200/90 hover:text-white hover:bg-black/20 transition">
-            Route 2 夢幻雞心崙
+
+          <button id="btn-route-2" class="route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-cream-300/50 hover:text-cream-100 hover:bg-white/10 opacity-60 hover:opacity-100 transition border border-dashed border-white/15" title="陽明山夢幻雞心崙（點擊仍可檢視完整資訊）">
+            <i class="fa-regular fa-eye-slash text-[10px] mr-1 opacity-70"></i>Route 2 夢幻雞心崙
           </button>
-          <button id="btn-route-3" class="route-switch-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-cream-200/90 hover:text-white hover:bg-black/20 transition">
-            Route 3 草嶺古道
+
+          <button id="btn-route-3" class="route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-cream-300/50 hover:text-cream-100 hover:bg-white/10 opacity-60 hover:opacity-100 transition border border-dashed border-white/15" title="草嶺古道正向 福隆➔大里（點擊仍可檢視完整資訊）">
+            <i class="fa-regular fa-eye-slash text-[10px] mr-1 opacity-70"></i>Route 3 草嶺(福隆➔大里)
+          </button>
+
+          <span class="inline-block w-px h-4 bg-white/20 mx-0.5"></span>
+
+          <button id="btn-route-4" class="route-switch-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#1E5B6E] text-white shadow-sm ring-1 ring-white/30" title="草嶺古道逆向 大里➔福隆（主推活動路線）">
+            <i class="fa-solid fa-star text-[10px] mr-1 text-mustard"></i>Route 4 草嶺(大里➔福隆)
           </button>
         </div>
 
         <!-- Google Maps 連動按鈕組 -->
         <div class="inline-flex rounded-xl shadow-xs overflow-hidden border border-cream-200/20">
-          <a id="btn-google-maps" href="https://maps.app.goo.gl/WdaTE1WCQbmd22Gx8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 bg-[#2D5A3A] hover:bg-[#23472E] text-white text-xs sm:text-sm font-semibold transition" title="於新分頁開啟 Google 地圖導航">
+          <a id="btn-google-maps" href="https://maps.app.goo.gl/JoXFGi8BraWwn1bN8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 bg-[#2D5A3A] hover:bg-[#23472E] text-white text-xs sm:text-sm font-semibold transition" title="於新視窗開啟 Google 地圖路線">
             <i class="fa-solid fa-map-location-dot text-mustard"></i> Google 地圖
           </a>
           <button id="btn-copy-map-link" class="px-2.5 py-2 bg-[#23472E] hover:bg-[#1A3622] text-cream-200 hover:text-white transition" title="複製此路線 Google 地圖連結">
@@ -246,104 +234,90 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow space-y-6">
     <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-      <!-- Stat 1: Distance -->
-      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-rust transition">
+      <!-- Stat 1 -->
+      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-ocean transition">
         <div class="text-taupe text-xs font-bold flex items-center justify-between mb-1">
           <span>總步行距離</span>
-          <i class="fa-solid fa-route text-forest"></i>
+          <i class="fa-solid fa-route text-ocean"></i>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-dist-val">6.8 <span class="text-xs font-semibold text-taupe">km</span></div>
-        <div class="text-[11px] text-taupe mt-1" id="stat-dist-sub">連續踏石階步道</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-dist-val">8.7 <span class="text-xs font-semibold text-taupe">km</span></div>
+        <div class="text-[11px] text-taupe mt-1" id="stat-dist-sub">石階古道＋平緩鄉道</div>
       </div>
 
-      <!-- Stat 2: Ascent -->
+      <!-- Stat 2 -->
       <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-rust transition">
         <div class="text-taupe text-xs font-bold flex items-center justify-between mb-1">
           <span>總累計爬升</span>
           <i class="fa-solid fa-arrow-trend-up text-rust"></i>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-ascent-val">+360 <span class="text-xs font-semibold text-taupe">m</span></div>
-        <div class="text-[11px] text-taupe mt-1" id="stat-ascent-sub">從小油坑登頂雙峰</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-ascent-val">+345 <span class="text-xs font-semibold text-taupe">m</span></div>
+        <div class="text-[11px] text-taupe mt-1" id="stat-ascent-sub">大里直上埡口鞍部</div>
       </div>
 
-      <!-- Stat 3: Descent -->
-      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-rust transition">
+      <!-- Stat 3 -->
+      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-forest transition">
         <div class="text-taupe text-xs font-bold flex items-center justify-between mb-1">
           <span>總累計下降</span>
           <i class="fa-solid fa-arrow-trend-down text-forest"></i>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-descent-val">-410 <span class="text-xs font-semibold text-taupe">m</span></div>
-        <div class="text-[11px] text-taupe mt-1" id="stat-descent-sub">東峰下冷水坑陡降</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-descent-val">-350 <span class="text-xs font-semibold text-taupe">m</span></div>
+        <div class="text-[11px] text-taupe mt-1" id="stat-descent-sub">埡口一路緩降至福隆</div>
       </div>
 
-      <!-- Stat 4: Estimated Time & Calories -->
-      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-rust transition">
+      <!-- Stat 4 -->
+      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-mustard transition">
         <div class="text-taupe text-xs font-bold flex items-center justify-between mb-1">
           <span>動態預估時間</span>
           <i class="fa-regular fa-clock text-mustard"></i>
         </div>
-        <div id="stat-est-time" class="text-2xl sm:text-3xl font-extrabold text-forest">3 小時 45 分鐘</div>
+        <div id="stat-est-time" class="text-2xl sm:text-3xl font-extrabold text-ocean">3 小時 15 分鐘</div>
         <div class="text-[11px] text-taupe mt-1 flex items-center justify-between" id="stat-est-calorie-wrapper">
           <span id="stat-est-calorie">預估消耗約 720 kcal</span>
           <a href="#calorie-standard-note" class="text-[10px] text-rust hover:text-rust-dark font-bold underline underline-offset-2 ml-1 cursor-pointer" title="查看熱量計算標準">計算依據</a>
         </div>
       </div>
 
-      <!-- Stat 5: Maximum Altitude -->
-      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-rust transition">
+      <!-- Stat 5 -->
+      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-mustard transition">
         <div class="text-taupe text-xs font-bold flex items-center justify-between mb-1">
           <span>最高海拔點</span>
-          <i class="fa-solid fa-medal text-mustard"></i>
+          <i class="fa-solid fa-mountain text-mustard"></i>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-max-alt-val">1,120 <span class="text-xs font-semibold text-taupe">m</span></div>
-        <div class="text-[11px] text-taupe mt-1" id="stat-max-alt-sub">台北第一高峰主峰</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-max-alt-val">340 <span class="text-xs font-semibold text-taupe">m</span></div>
+        <div class="text-[11px] text-taupe mt-1" id="stat-max-alt-sub">草嶺古道埡口鞍部</div>
       </div>
 
-      <!-- Stat 6: Difficulty -->
-      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-rust transition">
+      <!-- Stat 6 -->
+      <div class="bg-cream-50 p-4 rounded-2xl border border-cream-300 shadow-xs hover:border-plum transition">
         <div class="text-taupe text-xs font-bold flex items-center justify-between mb-1">
           <span>路線難度等級</span>
           <i class="fa-solid fa-shield-cat text-plum"></i>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-diff-val">中級郊山</div>
-        <div class="text-[11px] text-taupe mt-1 leading-snug" id="stat-diff-sub">排汗防曬保暖衣物，充分飲水準備</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-charcoal" id="stat-diff-val">入門大眾</div>
+        <div class="text-[11px] text-taupe mt-1 leading-snug" id="stat-diff-sub">先陡升後緩降，慶功福隆便當</div>
       </div>
     </section>
 
-    <!-- 腳程節奏調節器 -->
     <section class="bg-cream-50 rounded-2xl p-4 sm:p-5 border border-cream-300 shadow-xs">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 class="text-sm font-bold text-charcoal flex items-center gap-2">
-            <i class="fa-solid fa-temperature-three-quarters text-rust"></i> 健行腳程與節奏微調（Pace Adjuster）
+            <i class="fa-solid fa-sliders text-rust"></i> 健行腳程與節奏微調（Pace Adjuster）
           </h3>
-          <p class="text-xs text-taupe mt-0.5">系統將即時依照個人步調重算各節點抵達時間與體力熱量消耗。</p>
+          <p class="text-xs text-taupe mt-0.5">滑動色彩調節器，即時換算個人配速之各站抵達時刻與 METs 熱量消耗。</p>
         </div>
         <div class="flex flex-col sm:flex-row sm:items-center gap-3">
-          <!-- 熱力狀態標籤 -->
-          <div class="flex items-center">
-            <span id="speed-label" class="text-xs font-bold px-3.5 py-1.5 rounded-full whitespace-nowrap shadow-2xs border transition-all duration-200">
-              紫紅外套退休人士（1.0x倍速）
+          <div class="flex items-center gap-2.5">
+            <span id="speed-badge" class="text-xs font-bold px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 shadow-xs border bg-emerald-50 text-emerald-800 border-emerald-200">
+              <i id="speed-icon" class="fa-solid fa-person-walking"></i>
+              <span id="speed-label">標準腳程（1.0x倍速）</span>
             </span>
           </div>
-
-          <!-- 熱力滑桿本體與視覺刻度標籤 -->
-          <div class="flex flex-col gap-1">
-            <div class="flex items-center gap-2">
-              <span class="text-[11px] font-extrabold text-red-600 flex items-center gap-1 shrink-0" title="快步速（紅色熱區）">
-                <i class="fa-solid fa-fire text-red-500 animate-pulse"></i> 疾行
-              </span>
-              <input id="pace-slider" type="range" min="0.7" max="1.5" step="0.1" value="1.0" class="heatmap-slider w-40 sm:w-56 cursor-pointer" aria-label="健行腳程配速調節桿">
-              <span class="text-[11px] font-extrabold text-purple-700 flex items-center gap-1 shrink-0" title="慢步速（藍紫冷區）">
-                漫步 <i class="fa-solid fa-snowflake text-indigo-500"></i>
-              </span>
-              <button id="pace-reset-btn" class="text-xs px-2.5 py-1 text-charcoal font-medium hover:bg-cream-200 bg-cream-100 rounded-lg border border-cream-300 transition shrink-0 ml-1">重設</button>
-            </div>
-            <div class="flex justify-between text-[10px] font-bold text-taupe px-1 select-none">
-              <span class="text-red-700/80">0.7x 勇腳</span>
-              <span class="text-amber-700/80">1.0x 標準</span>
-              <span class="text-purple-700/80">1.5x 慢活</span>
-            </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] text-red-600 font-bold"><i class="fa-solid fa-fire"></i> 快</span>
+            <input id="pace-slider" type="range" min="0.7" max="1.5" step="0.1" value="1.0" class="heatmap-slider w-36 sm:w-48 cursor-pointer">
+            <span class="text-[10px] text-purple-700 font-bold">慢 <i class="fa-regular fa-snowflake"></i></span>
+            <button id="pace-reset-btn" class="text-xs px-2.5 py-1 text-charcoal font-medium hover:bg-cream-200 bg-cream-100 rounded-lg border border-cream-300 transition">重設</button>
           </div>
         </div>
       </div>
@@ -392,48 +366,25 @@
         
         <!-- Trail Map Card -->
         <div class="bg-cream-50 rounded-2xl border border-cream-300 overflow-hidden shadow-xs">
-          <!-- Card Header -->
           <div class="px-4 py-3 bg-cream-100 border-b border-cream-300 flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center gap-2.5">
-              <span class="w-3 h-3 rounded-full bg-forest"></span>
-              <h2 class="text-sm font-bold text-charcoal">全線步道路網導覽圖（縱走拓撲示意）</h2>
+              <span class="w-3 h-3 rounded-full bg-ocean" id="map-header-dot"></span>
+              <h2 class="text-sm font-bold text-charcoal" id="map-header-title">全線步道路網導覽圖（逆向穿越拓撲示意）</h2>
             </div>
             <div class="flex items-center gap-2 text-xs">
-              <span class="text-xs bg-forest-pale text-forest font-semibold px-2.5 py-0.5 rounded-full border border-forest/20">
-                <i class="fa-solid fa-compass text-[11px] mr-1"></i> 西北往東南向
+              <span class="text-xs bg-ocean-pale text-ocean font-semibold px-2.5 py-0.5 rounded-full border border-ocean/20" id="map-dir-badge">
+                <i class="fa-solid fa-compass text-[11px] mr-1"></i> 東南往西北向 (大里➔福隆)
               </span>
             </div>
           </div>
           
-          <!-- Static Background Trail Map Graphic with Topo Contours & Mountains -->
           <div class="topo-map-bg p-3 sm:p-5 flex items-center justify-center overflow-hidden">
-            <svg id="trailSvg" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet" class="w-full h-auto max-w-full block select-none" xmlns="http://www.w3.org/2000/svg">
+            <svg id="trailSvg" viewBox="0 0 1000 460" class="w-full h-auto max-w-full block select-none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <pattern id="contourPattern" width="120" height="120" patternUnits="userSpaceOnUse">
                   <path d="M 0,40 Q 30,20 60,40 T 120,40 M 0,80 Q 40,95 80,75 T 120,85 M 0,115 Q 60,100 120,115" 
                         fill="none" stroke="#DBCFBC" stroke-width="0.8" opacity="0.35"/>
                 </pattern>
-
-                <linearGradient id="autumnTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#BD5738" />
-                  <stop offset="25%" stop-color="#394A3D" />
-                  <stop offset="60%" stop-color="#C98D2C" />
-                  <stop offset="100%" stop-color="#394A3D" />
-                </linearGradient>
-
-                <linearGradient id="chillTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#4A7B82" />
-                  <stop offset="30%" stop-color="#52796F" />
-                  <stop offset="65%" stop-color="#73937E" />
-                  <stop offset="100%" stop-color="#DDA15E" />
-                </linearGradient>
-
-                <linearGradient id="oceanTrailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#2D5A7B" />
-                  <stop offset="35%" stop-color="#3C7A89" />
-                  <stop offset="65%" stop-color="#C28C2C" />
-                  <stop offset="100%" stop-color="#2D5A7B" />
-                </linearGradient>
 
                 <filter id="woodShadow" x="-20%" y="-20%" width="140%" height="140%">
                   <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#33312E" flood-opacity="0.18"/>
@@ -450,21 +401,21 @@
               </g>
 
               <path id="svg-zone-qixing" d="M 100,210 C 150,80 340,65 420,135 C 440,210 350,260 230,250 C 150,240 80,230 100,210 Z" 
-                    fill="#E9EFEA" stroke="#B7C9BB" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.8"/>
-              <ellipse id="svg-zone-menghuan" cx="500" cy="275" rx="55" ry="32" fill="#F4EFEB" stroke="#D3C7BD" stroke-width="1.2" stroke-dasharray="4 3"/>
-              <ellipse id="svg-zone-qingtiangang" cx="945" cy="360" rx="70" ry="46" fill="#FBF4E6" stroke="#DE9F38" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
+                    fill="#E9EFEA" stroke="#B7C9BB" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.2"/>
+              <ellipse cx="500" cy="275" rx="55" ry="32" fill="#F4EFEB" stroke="#D3C7BD" stroke-width="1.2" stroke-dasharray="4 3"/>
+              <ellipse cx="945" cy="360" rx="70" ry="46" fill="#FBF4E6" stroke="#DE9F38" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.85"/>
 
-              <text id="svg-txt-qixing" x="260" y="32" text-anchor="middle" font-size="13" fill="#394A3D" font-weight="700" letter-spacing="1">
-                【七星山系高海拔稜線】
+              <text id="svg-txt-qixing" x="260" y="28" text-anchor="middle" font-size="14" fill="#1E5B6E" font-weight="700" letter-spacing="1">
+                【草嶺古道歷史山海稜線】
               </text>
-              <text id="svg-txt-menghuan" x="500" y="395" text-anchor="middle" font-size="11.5" fill="#8C7A6B" font-weight="600" opacity="0.75">
-                夢幻湖濕地保護區
+              <text id="svg-txt-menghuan" x="500" y="445" text-anchor="middle" font-size="12.5" fill="#8C7A6B" font-weight="600">
+                遠望坑水岸與梯田區
               </text>
-              <text id="svg-txt-qingtiangang" x="935" y="445" text-anchor="middle" font-size="11.5" fill="#C98D2C" font-weight="700" opacity="0.75">
-                擎天崗草原台地
+              <text id="svg-txt-qingtiangang" x="915" y="445" text-anchor="middle" font-size="12.5" fill="#DE9F38" font-weight="700">
+                福隆便當慶功終點站
               </text>
 
-              <g transform="translate(975, 45)">
+              <g transform="translate(970, 48)">
                 <circle cx="0" cy="0" r="21" fill="#FAF6EE" stroke="#B4A597" stroke-width="1.5" filter="url(#woodShadow)" />
                 <polygon points="0,-16 4.5,-2 0,0" fill="#BD5738" />
                 <polygon points="0,-16 -4.5,-2 0,0" fill="#9E442B" />
@@ -481,13 +432,12 @@
             </svg>
           </div>
 
-          <!-- Trail Graphic Legend -->
           <div class="px-4 py-3 bg-cream-100 border-t border-cream-300 flex flex-wrap gap-4 text-xs text-charcoal justify-between">
             <div class="flex items-center gap-2">
-              <span class="inline-block w-3 h-3 bg-rust rounded-full border border-cream-50"></span> 起點/終點
-              <span class="inline-block w-3 h-3 bg-forest rounded-full border border-cream-50 ml-2"></span> 百岳頂峰
-              <span class="inline-block w-3 h-3 bg-plum rounded-full border border-cream-50 ml-2"></span> 生態湖泊
-              <span class="inline-block w-3 h-3 bg-mustard rounded-full border border-cream-50 ml-2"></span> 中繼補給/撤退點
+              <span class="inline-block w-3 h-3 bg-ocean rounded-full border border-cream-50"></span> 起點/終點
+              <span class="inline-block w-3 h-3 bg-mustard rounded-full border border-cream-50 ml-2"></span> 埡口鞍部
+              <span class="inline-block w-3 h-3 bg-forest rounded-full border border-cream-50 ml-2"></span> 國定古蹟
+              <span class="inline-block w-3 h-3 bg-rust rounded-full border border-cream-50 ml-2"></span> 中繼整隊/公廁
             </div>
             <div class="text-taupe italic font-medium">點選任意地標可同步導覽右側詳情</div>
           </div>
@@ -498,9 +448,9 @@
           <div class="flex justify-between items-center mb-3">
             <div>
               <h3 class="text-sm font-bold text-charcoal flex items-center gap-2">
-                <i class="fa-solid fa-chart-area text-forest"></i> 等高海拔走勢圖（高度剖面 Profile）
+                <i class="fa-solid fa-chart-area text-ocean"></i> 等高海拔走勢圖（高度剖面 Profile）
               </h3>
-              <p class="text-xs text-taupe">橫軸為各節點里程，縱軸為海拔標高 (m)</p>
+              <p class="text-xs text-taupe">橫軸為累計里程 (km)，縱軸為標高 (m)</p>
             </div>
           </div>
           <div class="relative h-56 w-full">
@@ -509,7 +459,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Tabs -->
       <div class="lg:col-span-4 space-y-6">
         
         <div class="bg-cream-50 rounded-2xl border border-cream-300 overflow-hidden shadow-xs flex flex-col h-[700px] lg:h-[890px]">
@@ -528,9 +477,9 @@
 
           <!-- Tab Content 1: Waypoints List -->
           <div id="tab-waypoints" class="tab-panel flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-            <div class="bg-forest-pale border border-forest/20 rounded-xl p-3 text-xs text-forest flex items-start gap-2.5">
-              <i class="fa-solid fa-leaf text-forest mt-0.5"></i>
-              <span>點選任意站點卡片，地圖將平移特寫並鎖定標記。</span>
+            <div class="bg-ocean-pale border border-ocean/20 rounded-xl p-3 text-xs text-ocean-dark flex items-start gap-2.5">
+              <i class="fa-solid fa-compass text-ocean mt-0.5"></i>
+              <span>點選任意站點卡片，地圖將平移特寫並鎖定標記；勾選圓圈可打卡記錄進度。</span>
             </div>
 
             <div id="waypoint-list-container" class="space-y-3"></div>
@@ -540,12 +489,12 @@
           <div id="tab-transit" class="tab-panel hidden flex-1 overflow-y-auto p-4 space-y-3.5 custom-scrollbar text-xs">
             
             <!-- 行程型態提示 -->
-            <div id="transit-route-type-banner" class="bg-rust-pale border border-rust/30 rounded-xl p-3 text-rust-dark flex items-center justify-between">
+            <div id="transit-route-type-banner" class="bg-ocean-pale border border-ocean/30 rounded-xl p-3 text-ocean-dark flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-arrows-split-up-and-left text-rust text-sm"></i>
-                <span id="transit-route-type-text" class="font-bold">單向縱走行程（小油坑起點 ➔ 擎天崗終點）</span>
+                <i class="fa-solid fa-arrows-split-up-and-left text-ocean text-sm"></i>
+                <span id="transit-route-type-text" class="font-bold">逆向越嶺穿越（大里起登 ➔ 福隆便當慶功）</span>
               </div>
-              <span id="transit-route-type-badge" class="text-[11px] bg-cream-50 text-rust font-semibold px-2 py-0.5 rounded-md border border-rust/20">不走回頭路</span>
+              <span id="transit-route-type-badge" class="text-[11px] bg-cream-50 text-ocean font-semibold px-2 py-0.5 rounded-md border border-ocean/20">主推逆向線</span>
             </div>
 
             <!-- 動態交通指引容器 -->
@@ -567,7 +516,7 @@
               <div class="font-bold flex items-center gap-1.5 mb-1">
                 <i class="fa-solid fa-feather"></i> 洋蔥式三層穿搭守則（Layering Tips）：
               </div>
-              <p>排汗底層（Merino Base Layer）+ 保暖中層（Fleece / 薄羽絨）+ 防風防雨外層（Rain Shell）。稜線風勢強勁且氣溫常比市區低 5~7°C，切勿單穿純棉質衣物。</p>
+              <p>排汗底層（Merino Base Layer）+ 保暖中層（Fleece / 薄羽絨）+ 防風防雨外層（Rain Shell）。埡口迎風面風勢強勁且氣溫常比市區低，切勿單穿純棉質衣物。</p>
             </div>
           </div>
 
@@ -583,16 +532,15 @@
     <span id="toast-msg">訊息提示</span>
   </div>
 
-  <!-- Footer with company slogan -->
   <footer class="mt-8 bg-forest-dark text-cream-200/90 text-xs py-4 text-center border-t border-cream-300/20">
     <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 text-cream-100">
       <span class="font-bold text-mustard tracking-wide flex items-center gap-1.5">
         <i class="fa-solid fa-leaf text-mustard-light"></i> 2026今展福委會
       </span>
       <span class="hidden sm:inline opacity-40">•</span>
-      <span class="font-medium text-cream-50">加入今展，一路平坦（手札指南 V1.2）</span>
+      <span class="font-medium text-cream-50">加入今展，一路平坦</span>
       <span class="hidden sm:inline opacity-40">•</span>
-      <span class="text-cream-200/70 text-[11px]">Take only pictures, leave only footprints no trash.</span>
+      <span class="text-cream-200/70 text-[11px]">Take only pictures, leave only footprints no trash. (V1.3)</span>
     </div>
   </footer>
 
@@ -603,6 +551,7 @@
       name: "Route 1 主東縱走",
       subtitle: "小油坑 ➔ 七星主峰 ➔ 七星東峰 ➔ 夢幻湖 ➔ 冷水坑 ➔ 菁山吊橋 ➔ 擎天崗",
       badge: "秋芒挑戰健行",
+      themeColor: "#BD5738",
       googleMapsUrl: "https://maps.app.goo.gl/WdaTE1WCQbmd22Gx8",
       stats: {
         dist: "6.8",
@@ -617,184 +566,24 @@
         diffSub: "排汗防曬保暖衣物，充分飲水準備"
       },
       waypoints: [
-        {
-          id: 1,
-          name: "小油坑遊客服務站",
-          mapName: "小油坑服務站",
-          badge: "起點",
-          alt: 811,
-          lat: 25.176434,
-          lng: 121.546896,
-          distFromPrev: 0,
-          cumDist: 0.0,
-          baseTimeMin: 0,
-          svgX: 65,
-          svgY: 320,
-          labelPos: "bottom",
-          textY: 362,
-          badgeY: 388,
-          color: "#BD5738",
-          desc: "台北最具代表性的後火山噴氣孔地質景觀，備有補水機與公廁，建議在此進行登山杖調整與最後暖身。",
-          features: ["火山地質", "飲水補充", "公廁", "遊園公車站"],
-          caution: "噴氣口周遭硫磺氣體較濃郁，呼吸道敏感者請勿久留。"
-        },
-        {
-          id: 2,
-          name: "七星山主峰",
-          mapName: "七星山主峰",
-          badge: "最高峰",
-          alt: 1120,
-          lat: 25.170735,
-          lng: 121.553507,
-          distFromPrev: 1.6,
-          cumDist: 1.6,
-          baseTimeMin: 70,
-          svgX: 210,
-          svgY: 125,
-          labelPos: "top",
-          textY: 82,
-          badgeY: 56,
-          color: "#394A3D",
-          desc: "台北市第一高峰，立有一等三角點與木樁，可 360 度環顧台北盆地、北海岸與淡水河口，視野浩瀚。",
-          features: ["一等三角點", "360度環景", "最高點地標柱"],
-          caution: "連續陡上石梯，迎風面強烈陣風，秋冬季氣溫常低於市區 6°C。"
-        },
-        {
-          id: 3,
-          name: "七星山東峰",
-          mapName: "七星山東峰",
-          badge: "三等三角點",
-          alt: 1107,
-          lat: 25.169467,
-          lng: 121.555567,
-          distFromPrev: 0.3,
-          cumDist: 1.9,
-          baseTimeMin: 20,
-          svgX: 345,
-          svgY: 148,
-          labelPos: "top",
-          textY: 104,
-          badgeY: 78,
-          color: "#394A3D",
-          desc: "立有三等三角點，自峰頂回望主峰岩稜線條極具氣勢，為觀察大屯火山群地貌之絕佳制高點。",
-          features: ["三等三角點", "回望主峰鞍部"],
-          caution: "自鞍部下切後快速上升，石階稍有落差需踩穩腳步。"
-        },
-        {
-          id: 4,
-          name: "夢幻湖觀景臺",
-          mapName: "夢幻湖觀景臺",
-          badge: "生態保護區",
-          alt: 880,
-          lat: 25.167067,
-          lng: 121.560364,
-          distFromPrev: 1.1,
-          cumDist: 3.0,
-          baseTimeMin: 35,
-          svgX: 485,
-          svgY: 255,
-          labelPos: "top",
-          textY: 206,
-          badgeY: 180,
-          color: "#6B424A",
-          desc: "天然火口湖濕地，受嚴格生態保育保護，孕育瀕危特有種水生蕨類「台灣水韭」，雲霧繚繞極具詩意。",
-          features: ["台灣水韭", "高山濕地", "湖畔木棧觀景台"],
-          caution: "自東峰陡降此段石梯漫長，青苔石階雨後易滑，強烈建議雙杖支撐。"
-        },
-        {
-          id: 5,
-          name: "冷水坑觀景台",
-          mapName: "冷水坑觀景台",
-          badge: "展望節點",
-          alt: 820,
-          lat: 25.165060,
-          lng: 121.559844,
-          distFromPrev: 0.4,
-          cumDist: 3.4,
-          baseTimeMin: 15,
-          svgX: 620,
-          svgY: 295,
-          labelPos: "bottom",
-          textY: 348,
-          badgeY: 374,
-          color: "#8C7A6B",
-          desc: "俯瞰冷水坑盆地、牛奶湖地熱景觀與遠眺擎天崗草原稜線的視野制高點。",
-          features: ["遠眺牛奶湖", "冷水坑盆地全景"],
-          caution: "坡度漸緩，請維持均勻步伐注意膝關節緩衝。"
-        },
-        {
-          id: 6,
-          name: "冷水坑服務站",
-          mapName: "冷水坑服務站",
-          badge: "中繼補給站",
-          alt: 760,
-          lat: 25.165628,
-          lng: 121.563952,
-          distFromPrev: 0.5,
-          cumDist: 3.9,
-          baseTimeMin: 15,
-          svgX: 740,
-          svgY: 310,
-          labelPos: "top",
-          textY: 260,
-          badgeY: 234,
-          color: "#C98D2C",
-          desc: "重要補給與休整基地，設有熱食販賣部、自動販賣機、飲水機，附近有天然溫泉泡腳池。",
-          features: ["熱食販賣", "公共足湯", "重要撤退公車站"],
-          caution: "體力不支或天候驟變時的法定安全撤退樞紐。"
-        },
-        {
-          id: 7,
-          name: "菁山吊橋",
-          mapName: "菁山吊橋",
-          badge: "風景名勝",
-          alt: 765,
-          lat: 25.166412,
-          lng: 121.565617,
-          distFromPrev: 0.2,
-          cumDist: 4.1,
-          baseTimeMin: 8,
-          svgX: 845,
-          svgY: 275,
-          labelPos: "bottom",
-          textY: 342,
-          badgeY: 368,
-          color: "#394A3D",
-          desc: "橫跨冷水坑溪的紅褐色鋼索吊橋，橋下溪流含微量硫磺鐵礦質，兩側柳杉林道蓊鬱清幽。",
-          features: ["紅褐吊橋", "冷水坑溪", "柳杉林道"],
-          caution: "橋面限制通行人數，請依序通過勿推擠搖晃。"
-        },
-        {
-          id: 8,
-          name: "擎天崗遊客服務站",
-          mapName: "擎天崗服務站",
-          badge: "終點站",
-          alt: 760,
-          lat: 25.167217,
-          lng: 121.574186,
-          distFromPrev: 2.7,
-          cumDist: 6.8,
-          baseTimeMin: 50,
-          svgX: 945,
-          svgY: 315,
-          labelPos: "bottom",
-          textY: 368,
-          badgeY: 394,
-          color: "#BD5738",
-          desc: "本縱走路線終點，著名的高山草原台地與放牧水牛景致，設有遊客中心、小15公車直達捷運劍潭站。",
-          features: ["大草原景觀", "環形步道", "回程客運站"],
-          caution: "與草原放牧水牛保持至少 20 公尺安全距離，勿逗弄追逐。"
-        }
+        { id: 1, name: "小油坑遊客服務站", badge: "起點", alt: 811, lat: 25.176434, lng: 121.546896, distFromPrev: 0, cumDist: 0.0, baseTimeMin: 0, svgX: 65, svgY: 320, textY: 365, badgeY: 395, color: "#BD5738", desc: "火山噴氣孔地質景觀，備有飲水機與公廁，進行登山杖調整與最後暖身。", features: ["火山地質", "飲水補充", "公廁", "遊園公車"], caution: "噴氣口周遭硫磺氣體較濃，呼吸道敏感者請勿久留。" },
+        { id: 2, name: "七星山主峰", badge: "最高峰", alt: 1120, lat: 25.170735, lng: 121.553507, distFromPrev: 1.6, cumDist: 1.6, baseTimeMin: 70, svgX: 220, svgY: 125, textY: 75, badgeY: 48, color: "#394A3D", desc: "台北市第一高峰，一等三角點，可 360 度環顧台北盆地與北海岸。", features: ["一等三角點", "360度環景", "最高地標柱"], caution: "連續陡上石梯，迎風面強烈陣風，氣溫常低於市區 6°C。" },
+        { id: 3, name: "七星山東峰", badge: "三等三角點", alt: 1107, lat: 25.169467, lng: 121.555567, distFromPrev: 0.3, cumDist: 1.9, baseTimeMin: 20, svgX: 360, svgY: 150, textY: 95, badgeY: 68, color: "#394A3D", desc: "三等三角點，自峰頂回望主峰岩稜線條極具氣勢。", features: ["三等三角點", "回望主峰鞍部"], caution: "鞍部下切後快速上升，石階稍有落差需踩穩腳步。" },
+        { id: 4, name: "夢幻湖觀景臺", badge: "生態保護區", alt: 880, lat: 25.167067, lng: 121.560364, distFromPrev: 1.1, cumDist: 3.0, baseTimeMin: 35, svgX: 500, svgY: 260, textY: 215, badgeY: 188, color: "#6B424A", desc: "天然火口湖濕地，保育瀕危特有種「台灣水韭」，雲霧繚繞極具詩意。", features: ["台灣水韭", "高山濕地", "湖畔木棧觀景台"], caution: "東峰陡降此段石梯漫長，青苔石階雨後易滑，強烈建議雙杖。" },
+        { id: 5, name: "冷水坑觀景台", badge: "展望節點", alt: 820, lat: 25.165060, lng: 121.559844, distFromPrev: 0.4, cumDist: 3.4, baseTimeMin: 15, svgX: 640, svgY: 300, textY: 355, badgeY: 385, color: "#8C7A6B", desc: "俯瞰冷水坑盆地、牛奶湖地熱景觀與遠眺擎天崗草原稜線制高點。", features: ["遠眺牛奶湖", "冷水坑盆地全景"], caution: "坡度漸緩，請維持均勻步伐注意膝關節緩衝。" },
+        { id: 6, name: "冷水坑服務站", badge: "中繼補給站", alt: 760, lat: 25.165628, lng: 121.563952, distFromPrev: 0.5, cumDist: 3.9, baseTimeMin: 15, svgX: 755, svgY: 315, textY: 260, badgeY: 232, color: "#C98D2C", desc: "重要補給與休整基地，設有熱食販賣部、自動販賣機、飲水機與公共溫泉足湯。", features: ["熱食販賣", "公共足湯", "重要撤退站"], caution: "體力不支或天候驟變時的法定安全撤退樞紐。" },
+        { id: 7, name: "菁山吊橋", badge: "風景名勝", alt: 765, lat: 25.166412, lng: 121.565617, distFromPrev: 0.2, cumDist: 4.1, baseTimeMin: 8, svgX: 850, svgY: 280, textY: 345, badgeY: 375, color: "#394A3D", desc: "橫跨冷水坑溪的紅褐色鋼索吊橋，兩側柳杉林道蓊鬱清幽。", features: ["紅褐吊橋", "冷水坑溪", "柳杉林道"], caution: "橋面限制通行人數，請依序通過勿推擠搖晃。" },
+        { id: 8, name: "擎天崗遊客服務站", badge: "終點站", alt: 760, lat: 25.167217, lng: 121.574186, distFromPrev: 2.7, cumDist: 6.8, baseTimeMin: 50, svgX: 945, svgY: 320, textY: 380, badgeY: 410, color: "#BD5738", desc: "終點高山草原台地與放牧水牛景致，小15公車直達捷運劍潭站。", features: ["大草原景觀", "環形步道", "回程客運站"], caution: "與草原放牧水牛保持至少 20 公尺安全距離，勿逗弄追逐。" }
       ],
-      pathD: "M 65,320 C 130,250 160,150 210,125 S 295,120 345,148 S 435,215 485,255 S 570,295 620,295 S 690,320 740,310 S 800,285 845,275 S 905,305 945,315",
+      pathD: "M 65,320 C 130,250 165,150 220,125 S 310,120 360,150 S 445,215 500,260 S 585,300 640,300 S 705,325 755,315 S 810,290 850,280 S 905,310 945,320",
       distances: [
-        { x: 130, y: 205, dist: "1.6 km", color: "#394A3D" },
-        { x: 278, y: 168, dist: "0.3 km", color: "#BD5738" },
-        { x: 420, y: 185, dist: "1.1 km", color: "#394A3D" },
-        { x: 550, y: 258, dist: "0.4 km", color: "#8C7A6B" },
-        { x: 678, y: 285, dist: "0.5 km", color: "#C98D2C" },
-        { x: 795, y: 320, dist: "0.2 km", color: "#394A3D" },
-        { x: 900, y: 260, dist: "2.7 km", color: "#BD5738" }
+        { x: 135, y: 210, dist: "1.6 km", color: "#394A3D" },
+        { x: 290, y: 175, dist: "0.3 km", color: "#BD5738" },
+        { x: 440, y: 190, dist: "1.1 km", color: "#394A3D" },
+        { x: 565, y: 265, dist: "0.4 km", color: "#8C7A6B" },
+        { x: 695, y: 290, dist: "0.5 km", color: "#C98D2C" },
+        { x: 800, y: 325, dist: "0.2 km", color: "#394A3D" },
+        { x: 900, y: 265, dist: "2.7 km", color: "#BD5738" }
       ]
     };
 
@@ -805,7 +594,6 @@
       subtitle: "小油坑 ➔ 夢幻湖 ➔ 冷水坑 ➔ 菁山吊橋 ➔ 雞心崙 ➔ 擎天崗（避開陡峰休閒線）",
       badge: "Chill 慢活悠遊",
       themeColor: "#4A7B82",
-      themeColorLight: "#E8F1F2",
       googleMapsUrl: "https://maps.app.goo.gl/R3219xFp1FuhgjEx7",
       stats: {
         dist: "5.5",
@@ -820,177 +608,36 @@
         diffSub: "步道平緩好走，適合親子休閒同樂"
       },
       waypoints: [
-        {
-          id: 1,
-          name: "小油坑遊客服務站",
-          mapName: "小油坑服務站",
-          badge: "起點",
-          alt: 811,
-          lat: 25.176434,
-          lng: 121.546896,
-          distFromPrev: 0,
-          cumDist: 0.0,
-          baseTimeMin: 0,
-          svgX: 65,
-          svgY: 320,
-          labelPos: "bottom",
-          textY: 362,
-          badgeY: 388,
-          color: "#4A7B82",
-          desc: "台北最具代表性的後火山噴氣孔地質景觀，路線由此避開主峰陡坡，沿人車分道與中湖步道銜接夢幻湖。",
-          features: ["火山地質", "飲水補充", "避開登頂千階"],
-          caution: "噴氣孔硫磺氣體稍濃，建議整裝後啟程。"
-        },
-        {
-          id: 2,
-          name: "夢幻湖觀景臺",
-          mapName: "夢幻湖觀景臺",
-          badge: "生態保護區",
-          alt: 880,
-          lat: 25.167067,
-          lng: 121.560364,
-          distFromPrev: 2.8,
-          cumDist: 2.8,
-          baseTimeMin: 55,
-          svgX: 350,
-          svgY: 235,
-          labelPos: "top",
-          textY: 184,
-          badgeY: 158,
-          color: "#52796F",
-          desc: "天然火口湖濕地，受嚴格生態保育保護，孕育瀕危特有種水生蕨類「台灣水韭」，雲霧繚繞極具詩意。",
-          features: ["台灣水韭", "高山濕地", "湖畔木棧觀景台"],
-          caution: "湖畔木棧道雨後濕滑，請依序慢行賞景。"
-        },
-        {
-          id: 3,
-          name: "冷水坑觀景台",
-          mapName: "冷水坑觀景台",
-          badge: "展望節點",
-          alt: 820,
-          lat: 25.165060,
-          lng: 121.559844,
-          distFromPrev: 0.4,
-          cumDist: 3.2,
-          baseTimeMin: 12,
-          svgX: 490,
-          svgY: 290,
-          labelPos: "bottom",
-          textY: 342,
-          badgeY: 368,
-          color: "#73937E",
-          desc: "俯瞰冷水坑盆地、牛奶湖地熱景觀與遠眺擎天崗草原稜線的視野制高點。",
-          features: ["遠眺牛奶湖", "冷水坑盆地全景"],
-          caution: "坡度平緩，階梯寬敞易行。"
-        },
-        {
-          id: 4,
-          name: "冷水坑遊客服務站",
-          mapName: "冷水坑服務站",
-          badge: "中繼補給站",
-          alt: 760,
-          lat: 25.165628,
-          lng: 121.563952,
-          distFromPrev: 0.5,
-          cumDist: 3.7,
-          baseTimeMin: 15,
-          svgX: 635,
-          svgY: 310,
-          labelPos: "top",
-          textY: 258,
-          badgeY: 232,
-          color: "#DDA15E",
-          desc: "重要補給與休整基地，設有熱食販賣部、自動販賣機、飲水機，附近有天然溫泉泡腳池。",
-          features: ["熱食販賣", "公共足湯", "重要公車樞紐"],
-          caution: "設有公廁與開水機，推薦中途在此補給。"
-        },
-        {
-          id: 5,
-          name: "菁山吊橋",
-          mapName: "菁山吊橋",
-          badge: "風景名勝",
-          alt: 765,
-          lat: 25.166412,
-          lng: 121.565617,
-          distFromPrev: 0.2,
-          cumDist: 3.9,
-          baseTimeMin: 8,
-          svgX: 745,
-          svgY: 270,
-          labelPos: "bottom",
-          textY: 338,
-          badgeY: 364,
-          color: "#52796F",
-          desc: "橫跨冷水坑溪的紅褐色鋼索吊橋，橋下溪流含微量硫磺鐵礦質，兩側柳杉林道蓊鬱清幽。",
-          features: ["紅褐吊橋", "冷水坑溪", "柳杉林道"],
-          caution: "橋面限制通行人數，拍照時請注意步伐。"
-        },
-        {
-          id: 6,
-          name: "雞心崙 (反空降堡高地)",
-          mapName: "雞心崙碉堡",
-          badge: "展望制高點",
-          alt: 757,
-          lat: 25.165202,
-          lng: 121.567733,
-          distFromPrev: 0.7,
-          cumDist: 4.6,
-          baseTimeMin: 20,
-          svgX: 845,
-          svgY: 225,
-          labelPos: "top",
-          textY: 178,
-          badgeY: 152,
-          color: "#D48C46",
-          desc: "昔日軍事防衛重鎮，設有具歷史特色的反空降碉堡平台，居高臨下可環視冷擎步道草原與七星東峰群山。",
-          features: ["反空降碉堡", "制高觀景台", "歷史遺跡"],
-          caution: "碉堡周圍風勢較大，注意隨身帽子防風。"
-        },
-        {
-          id: 7,
-          name: "擎天崗遊客服務站",
-          mapName: "擎天崗服務站",
-          badge: "終點站",
-          alt: 760,
-          lat: 25.167217,
-          lng: 121.574186,
-          distFromPrev: 0.9,
-          cumDist: 5.5,
-          baseTimeMin: 25,
-          svgX: 945,
-          svgY: 315,
-          labelPos: "bottom",
-          textY: 368,
-          badgeY: 394,
-          color: "#4A7B82",
-          desc: "本縱走路線終點，著名的高山草原台地與放牧水牛景致，設有遊客中心、小15公車直達捷運劍潭站。",
-          features: ["大草原景觀", "環形步道", "回程客運站"],
-          caution: "與草原放牧水牛保持至少 20 公尺安全距離，勿逗弄追逐。"
-        }
+        { id: 1, name: "小油坑遊客服務站", badge: "起點", alt: 811, lat: 25.176434, lng: 121.546896, distFromPrev: 0, cumDist: 0.0, baseTimeMin: 0, svgX: 65, svgY: 320, textY: 365, badgeY: 395, color: "#4A7B82", desc: "路線由此避開主峰陡坡，沿人車分道與中湖步道銜接夢幻湖。", features: ["火山地質", "飲水補充", "避開登頂千階"], caution: "噴氣孔硫磺氣體稍濃，建議整裝後啟程。" },
+        { id: 2, name: "夢幻湖觀景臺", badge: "生態保護區", alt: 880, lat: 25.167067, lng: 121.560364, distFromPrev: 2.8, cumDist: 2.8, baseTimeMin: 55, svgX: 380, svgY: 240, textY: 188, badgeY: 160, color: "#52796F", desc: "火口湖濕地，受嚴格生態保育保護，孕育瀕危水生蕨類台灣水韭。", features: ["台灣水韭", "高山濕地", "湖畔木棧台"], caution: "湖畔木棧道雨後濕滑，請依序慢行賞景。" },
+        { id: 3, name: "冷水坑觀景台", badge: "展望節點", alt: 820, lat: 25.165060, lng: 121.559844, distFromPrev: 0.4, cumDist: 3.2, baseTimeMin: 12, svgX: 520, svgY: 295, textY: 350, badgeY: 380, color: "#73937E", desc: "俯瞰冷水坑盆地、牛奶湖地熱景觀與遠眺擎天崗草原制高點。", features: ["遠眺牛奶湖", "冷水坑盆地全景"], caution: "坡度平緩，階梯寬敞易行。" },
+        { id: 4, name: "冷水坑遊客服務站", badge: "中繼補給站", alt: 760, lat: 25.165628, lng: 121.563952, distFromPrev: 0.5, cumDist: 3.7, baseTimeMin: 15, svgX: 655, svgY: 315, textY: 260, badgeY: 232, color: "#DDA15E", desc: "補給與休整基地，設有熱食販賣部、自動販賣機、飲水機與天然足湯。", features: ["熱食販賣", "公共足湯", "重要公車樞紐"], caution: "設有公廁與開水機，推薦中途在此補給。" },
+        { id: 5, name: "菁山吊橋", badge: "風景名勝", alt: 765, lat: 25.166412, lng: 121.565617, distFromPrev: 0.2, cumDist: 3.9, baseTimeMin: 8, svgX: 755, svgY: 275, textY: 340, badgeY: 370, color: "#52796F", desc: "橫跨冷水坑溪的紅褐色鋼索吊橋，兩側柳杉林道蓊鬱清幽。", features: ["紅褐吊橋", "冷水坑溪", "柳杉林道"], caution: "橋面限制通行人數，拍照時請注意步伐。" },
+        { id: 6, name: "雞心崙反空降堡", badge: "展望制高點", alt: 757, lat: 25.165202, lng: 121.567733, distFromPrev: 0.7, cumDist: 4.6, baseTimeMin: 20, svgX: 855, svgY: 235, textY: 185, badgeY: 157, color: "#D48C46", desc: "歷史軍事碉堡平台，居高臨下可環視冷擎草原與七星東峰群山。", features: ["反空降碉堡", "制高觀景台", "歷史遺跡"], caution: "碉堡周圍風勢較大，注意隨身帽子防風。" },
+        { id: 7, name: "擎天崗遊客服務站", badge: "終點站", alt: 760, lat: 25.167217, lng: 121.574186, distFromPrev: 0.9, cumDist: 5.5, baseTimeMin: 25, svgX: 945, svgY: 320, textY: 380, badgeY: 410, color: "#4A7B82", desc: "終點高山草原台地與放牧水牛景致，小15公車直達捷運劍潭站。", features: ["大草原景觀", "環形步道", "回程客運站"], caution: "與草原放牧水牛保持安全距離，切勿追逐。" }
       ],
-      pathD: "M 65,320 C 140,295 240,260 350,235 S 435,280 490,290 S 580,315 635,310 S 695,290 745,270 S 800,218 845,225 S 900,295 945,315",
+      pathD: "M 65,320 C 150,300 250,265 380,240 S 460,285 520,295 S 600,320 655,315 S 715,295 755,275 S 805,225 855,235 S 905,300 945,320",
       distances: [
-        { x: 205, y: 265, dist: "2.8 km", color: "#52796F" },
-        { x: 420, y: 270, dist: "0.4 km", color: "#73937E" },
-        { x: 565, y: 305, dist: "0.5 km", color: "#DDA15E" },
-        { x: 695, y: 290, dist: "0.2 km", color: "#52796F" },
-        { x: 798, y: 240, dist: "0.7 km", color: "#D48C46" },
-        { x: 900, y: 285, dist: "0.9 km", color: "#4A7B82" }
+        { x: 230, y: 275, dist: "2.8 km", color: "#52796F" },
+        { x: 450, y: 275, dist: "0.4 km", color: "#73937E" },
+        { x: 590, y: 310, dist: "0.5 km", color: "#DDA15E" },
+        { x: 705, y: 295, dist: "0.2 km", color: "#52796F" },
+        { x: 805, y: 250, dist: "0.7 km", color: "#D48C46" },
+        { x: 900, y: 300, dist: "0.9 km", color: "#4A7B82" }
       ]
     };
 
     // ROUTE 3 DATA
     const ROUTE_3_CONFIG = {
       id: "route3",
-      name: "Route 3 草嶺古道山海線",
-      subtitle: "福隆火車站 ➔ 登山口(遠望坑梯田) ➔ 雄鎮蠻煙 ➔ 虎字碑 ➔ 埡口土地公廟 ➔ 大里車站",
-      badge: "秋芒山海古道",
+      name: "Route 3 草嶺古道正向",
+      subtitle: "福隆車站 ➔ 虎子山街 ➔ 遠望坑公廁 ➔ 梯田登山口 ➔ 跌死馬橋 ➔ 雄鎮蠻煙 ➔ 虎字碑 ➔ 埡口 ➔ 大里天公廟 ➔ 大里車站",
+      badge: "秋芒山海正向線",
       themeColor: "#2D5A7B",
-      themeColorLight: "#E8F0F5",
-      googleMapsUrl: "https://www.google.com.tw/maps/place/%E8%8D%89%E5%B6%BA%E5%8F%A4%E9%81%93%E7%99%BB%E5%B1%B1%E5%8F%A3(%E9%81%A0%E6%9C%9B%E5%9D%91%E6%A2%AF%E7%94%B0)/@25.0036761,121.8881394,14.18z/data=!4m44!1m37!4m36!1m6!1m2!1s0x345d5c54814fad27:0x1c23c0f67a3ca1d4!2z56aP6ZqGIDIyOOaWsOWMl-W4guiyouWvruWNgOemj-mahumHjOemj-mahuihlzLomZ8!2m2!1d121.9446682!2d25.0159203!1m6!1m2!1s0x345d5c3ed9973e3f:0x5b621cdc95f846da!2z6I2J5ba65Y-k6YGT55m75bGx5Y-jKOmBoOacm-Wdkeair-eUsCkgMjI45paw5YyX5biC6LKi5a-u5Y2A!2m2!1d121.9295568!2d24.9998229!1m6!1m2!1s0x345d5c3ed9973e3f:0x5b621cdc95f846da!2z6I2J5ba65Y-k6YGT55m75bGx5Y-jKOmBoOacm-Wdkeair-eUsCkgMjI45paw5YyX5biC6LKi5a-u5Y2A!2m2!1d121.9295568!2d24.9998229!1m6!1m2!1s0x345d5e9f0e75bddb:0xb6fb93666ff30724!2z6I2J5ba65Y-k6YGT5Z-h5Y-j5Zyf5Zyw5YWs5bufIDIyOOaWsOWMl-W4guiyouWvruWNgENhb2xpbmcgSGlzdG9yaWMgVHJhaWw!2m2!1d121.9263396!2d24.9797385!1m6!1m2!1s0x345d5ebe685faa7f:0xc0383cf6804d7e85!2z5aSn6YeM6LuK56uZIDI2MeWunOiYree4o-mgreWfjumOruWkp-mHjOmHjOa_sea1t-i3r-WFreautTMyNuiZnw!2m2!1d121.9225554!2d24.966616!3e2!3m5!1s0x345d5c3ed9973e3f:0x5b621cdc95f846da!8m2!3d24.9998229!4d121.9295568!16s%2Fg%2F1tr9l4xj?hl=zh-TW&entry=ttu&g_ep=EgoyMDI2MTAwNS4wIKXMDSoASAFQAw%3D%3D",
+      googleMapsUrl: "https://maps.google.com",
       stats: {
-        dist: "8.8",
-        distSub: "平緩柏油道＋林蔭石階越嶺",
+        dist: "8.7",
+        distSub: "平緩鄉道＋階梯翻越",
         ascent: "+350",
         ascentSub: "遠望坑經虎字碑登抵埡口",
         descent: "-345",
@@ -1001,177 +648,93 @@
         diffSub: "步道設施完備，火車雙向接駁便利"
       },
       waypoints: [
-        {
-          id: 1,
-          name: "福隆火車站",
-          mapName: "福隆火車站",
-          badge: "起點站",
-          alt: 12,
-          lat: 25.015920,
-          lng: 121.944668,
-          distFromPrev: 0,
-          cumDist: 0.0,
-          baseTimeMin: 0,
-          svgX: 65,
-          svgY: 340,
-          labelPos: "bottom",
-          textY: 388,
-          badgeY: 414,
-          color: "#2D5A7B",
-          desc: "台鐵宜蘭線重要車站，站前商家林立，著名的福隆便當、飲用水與登山行動糧補給點，出站後沿鄉道平緩啟程步向遠望坑。",
-          features: ["台鐵車站", "福隆便當補給", "洗手間", "平緩鄉道"],
-          caution: "車站前道路車流量較大，出發過馬路時請注意往來車輛。"
-        },
-        {
-          id: 2,
-          name: "登山口(遠望坑梯田)",
-          mapName: "登山口(遠望坑)",
-          badge: "步道起點",
-          alt: 35,
-          lat: 24.999823,
-          lng: 121.929557,
-          distFromPrev: 2.8,
-          cumDist: 2.8,
-          baseTimeMin: 45,
-          svgX: 220,
-          svgY: 310,
-          labelPos: "top",
-          textY: 262,
-          badgeY: 236,
-          color: "#3C7A89",
-          desc: "草嶺古道登山口正式起點，周遭梯田水塘與清澈小溪環繞，設有木棧道、涼亭與公廁，為正式進入古道石階步道前的整備站。",
-          features: ["登山口地標", "遠望坑梯田", "公廁設施", "登山杖整備"],
-          caution: "此處之後正式進入山徑石階，請調整登山杖與隨身飲水。"
-        },
-        {
-          id: 3,
-          name: "雄鎮蠻煙摩碣",
-          mapName: "雄鎮蠻煙碑",
-          badge: "國定古蹟",
-          alt: 240,
-          lat: 24.985860,
-          lng: 121.925480,
-          distFromPrev: 1.8,
-          cumDist: 4.6,
-          baseTimeMin: 45,
-          svgX: 390,
-          svgY: 215,
-          labelPos: "top",
-          textY: 168,
-          badgeY: 142,
-          color: "#2D5A7B",
-          desc: "清同治六年（1867年）台灣鎮總兵劉明燈所題刻之巨大岩石碑碣，為國定三級古蹟，林蔭石階古意盎然。",
-          features: ["清代國定古蹟", "歷史石刻", "林蔭巨石休憩區"],
-          caution: "沿線連續上行石階，青苔受潮較滑，踏階請留心落足點。"
-        },
-        {
-          id: 4,
-          name: "虎字碑",
-          mapName: "虎字碑",
-          badge: "國定古蹟",
-          alt: 330,
-          lat: 24.981520,
-          lng: 121.926210,
-          distFromPrev: 0.7,
-          cumDist: 5.3,
-          baseTimeMin: 20,
-          svgX: 540,
-          svgY: 135,
-          labelPos: "top",
-          textY: 88,
-          badgeY: 62,
-          color: "#C28C2C",
-          desc: "同治六年劉明燈行經此地因強風大作，題草書「虎」字取「雲從龍，風從虎」以鎮風暴，秋季周邊盛開漫山白芒。",
-          features: ["草書虎字碑", "秋芒海景觀", "風口地質特色"],
-          caution: "位於埡口迎風面，強勁海風強烈，帽子與輕薄風衣請穿戴牢固。"
-        },
-        {
-          id: 5,
-          name: "草嶺古道埡口土地公廟",
-          mapName: "埡口土地公廟",
-          badge: "最高鞍部",
-          alt: 340,
-          lat: 24.979738,
-          lng: 121.926339,
-          distFromPrev: 0.2,
-          cumDist: 5.5,
-          baseTimeMin: 10,
-          svgX: 685,
-          svgY: 130,
-          labelPos: "bottom",
-          textY: 180,
-          badgeY: 206,
-          color: "#C28C2C",
-          desc: "新北與宜蘭之縣界鞍部，設有百年石造土地公廟與雙層木造涼亭，可極目遠眺蔚藍太平洋與外海龜山島絕景。",
-          features: ["百年土地公廟", "觀海涼亭", "遠眺龜山島", "新北宜蘭縣界"],
-          caution: "此為全線最高點，自此開始轉為連續下坡步道。"
-        },
-        {
-          id: 6,
-          name: "客棧遺址 / 護管所",
-          mapName: "客棧遺址護管所",
-          badge: "中繼補給站",
-          alt: 180,
-          lat: 24.973410,
-          lng: 121.924820,
-          distFromPrev: 1.4,
-          cumDist: 6.9,
-          baseTimeMin: 30,
-          svgX: 825,
-          svgY: 250,
-          labelPos: "top",
-          textY: 202,
-          badgeY: 176,
-          color: "#3C7A89",
-          desc: "原為林務局護管所，現設有休憩座椅、自動販賣機、洗手間，在此可短暫歇腿並遙望大里海岸線。",
-          features: ["自動販賣機", "公廁", "林務護管所", "古客棧遺址"],
-          caution: "下坡石階略陡，可視膝蓋狀況善用下山林蔭柏油產業道路交替。"
-        },
-        {
-          id: 7,
-          name: "大里火車站",
-          mapName: "大里火車站",
-          badge: "終點站",
-          alt: 15,
-          lat: 24.966616,
-          lng: 121.922555,
-          distFromPrev: 1.9,
-          cumDist: 8.8,
-          baseTimeMin: 40,
-          svgX: 950,
-          svgY: 340,
-          labelPos: "bottom",
-          textY: 388,
-          badgeY: 414,
-          color: "#2D5A7B",
-          desc: "步道終點出大里遊客中心與大里天公廟後即可抵達台鐵大里車站，可搭乘火車北上返回福隆（自駕取車）或直接返台北。",
-          features: ["台鐵大里站", "大里天公廟", "遊客中心", "海岸鐵道風光"],
-          caution: "大里站多為台鐵區間車停靠，建議先查詢即時火車班次發車時間。"
-        }
+        { id: 1, name: "福隆車站", badge: "起點站", alt: 12, lat: 25.015920, lng: 121.944668, distFromPrev: 0, cumDist: 0.0, baseTimeMin: 0, svgX: 55, svgY: 345, textY: 395, badgeY: 425, color: "#2D5A7B", desc: "台鐵宜蘭線重要車站，採購福隆便當、飲用水與登山行動糧補給點。", features: ["台鐵車站", "福隆便當", "洗手間", "平緩鄉道"], caution: "車站前車流量較大，過馬路注意行車。" },
+        { id: 2, name: "虎子山街", badge: "前段接近", alt: 20, lat: 25.010500, lng: 121.938800, distFromPrev: 1.2, cumDist: 1.2, baseTimeMin: 18, svgX: 135, svgY: 340, textY: 295, badgeY: 268, color: "#3C7A89", desc: "沿虎子山街前進，避開主要幹道車流，沿途為清幽鄉間柏油道路。", features: ["鄉村風光", "安全接近路線"], caution: "路幅稍窄，隊伍靠邊行走。" },
+        { id: 3, name: "草嶺古道福隆路線段", badge: "水岸銜接", alt: 28, lat: 25.005100, lng: 121.933200, distFromPrev: 1.0, cumDist: 2.2, baseTimeMin: 15, svgX: 220, svgY: 335, textY: 385, badgeY: 415, color: "#2D5A7B", desc: "綠意田野鄉道，沿著遠望坑溪岸逐步深入山谷地帶。", features: ["遠望坑溪岸", "平坦易行"], caution: "路面偶有青苔，注意腳步穩定。" },
+        { id: 4, name: "遠望坑親水公園公廁", badge: "入山整隊點", alt: 32, lat: 25.001200, lng: 121.930400, distFromPrev: 0.7, cumDist: 2.9, baseTimeMin: 10, svgX: 305, svgY: 325, textY: 275, badgeY: 248, color: "#C98D2C", desc: "重要入山前整隊點，設有無障礙公廁與洗手補水設施。", features: ["公廁補水", "重要整隊點", "親水休憩"], caution: "⚠️ 公廁名為「無障礙」，古道山徑非無障礙步道！" },
+        { id: 5, name: "梯田登山口", badge: "入山確認點", alt: 35, lat: 24.999823, lng: 121.929557, distFromPrev: 0.4, cumDist: 3.3, baseTimeMin: 6, svgX: 385, svgY: 315, textY: 365, badgeY: 395, color: "#3C7A89", desc: "告別柏油鄉道，前導與收隊就位，正式踏上石階山徑。", features: ["梯田水塘", "登山杖整備", "正式入山"], caution: "開始上坡石階，收緊背包調整登山杖。" },
+        { id: 6, name: "跌死馬橋", badge: "歷史古蹟點", alt: 75, lat: 24.992500, lng: 121.927200, distFromPrev: 0.6, cumDist: 3.9, baseTimeMin: 12, svgX: 470, svgY: 280, textY: 230, badgeY: 202, color: "#394A3D", desc: "昔日木橋窄小，商旅騎馬至此常失足跌落，日治時期改建為拱型石橋。", features: ["百年歷史石橋", "溪谷林蔭", "坡度轉陡起點"], caution: "過橋後步道坡度顯著增加，控制爬坡心率。" },
+        { id: 7, name: "雄鎮蠻煙碑", badge: "國定古蹟", alt: 240, lat: 24.985860, lng: 121.925480, distFromPrev: 1.2, cumDist: 5.1, baseTimeMin: 35, svgX: 565, svgY: 205, textY: 155, badgeY: 127, color: "#2D5A7B", desc: "清同治六年（1867）劉明燈總兵所題之摩崖巨石，林蔭廣闊休憩區。", features: ["清代國定古蹟", "歷史石刻", "巨石休憩平台"], caution: "連續上坡石階，濕滑時小心踏穩階梯邊緣。" },
+        { id: 8, name: "虎字碑", badge: "國定古蹟", alt: 330, lat: 24.981520, lng: 121.926210, distFromPrev: 0.7, cumDist: 5.8, baseTimeMin: 20, svgX: 660, svgY: 135, textY: 88, badgeY: 60, color: "#C98D2C", desc: "同治六年劉明燈題草書「虎」字以鎮風暴，秋季漫山白芒如海。", features: ["草書虎字碑", "秋芒海景觀", "風口地貌"], caution: "位於鞍部風口，海風強勁，帽子務必扣緊。" },
+        { id: 9, name: "草嶺埡口一帶", badge: "最高鞍部", alt: 340, lat: 24.979738, lng: 121.926339, distFromPrev: 0.2, cumDist: 6.0, baseTimeMin: 8, svgX: 745, svgY: 130, textY: 180, badgeY: 208, color: "#DE9F38", desc: "全線最高點鞍部，百年土地公廟與涼亭，極目遠眺龜山島海景。", features: ["百年土地公廟", "觀海雙層涼亭", "遠眺龜山島", "管理節點"], caution: "【管理指示】全員點名，不延伸桃源谷，統一往大里下山。" },
+        { id: 10, name: "草嶺慶雲宮(天公廟)", badge: "下山集結點", alt: 20, lat: 24.970100, lng: 121.923400, distFromPrev: 2.2, cumDist: 8.2, baseTimeMin: 45, svgX: 845, svgY: 335, textY: 385, badgeY: 415, color: "#2D5A7B", desc: "香火鼎盛之古廟，下山正式集結點，設有大型公廁、飲水補給與特產商行。", features: ["天公廟祈福", "飲水補充", "下山大會合", "商行補給"], caution: "連續下坡石階終止，可在此收起登山杖與洗漱。" },
+        { id: 11, name: "大里車站", badge: "終點站", alt: 15, lat: 24.966616, lng: 121.922555, distFromPrev: 0.5, cumDist: 8.7, baseTimeMin: 8, svgX: 940, svgY: 345, textY: 295, badgeY: 268, color: "#2D5A7B", desc: "台鐵車站，步行過天橋出站即可候車，搭乘區間車返回福隆或直達台北。", features: ["台鐵大里站", "搭火車返北", "區間車接駁"], caution: "自駕者刷卡搭 1 站區間車（7分鐘）即可直達福隆取車。" }
       ],
-      pathD: "M 65,340 C 135,335 175,320 220,310 S 315,260 390,215 S 475,160 540,135 S 615,122 685,130 S 765,195 825,250 S 895,315 950,340",
+      pathD: "M 55,345 C 95,342 175,338 220,335 S 270,330 305,325 S 350,320 385,315 S 430,295 470,280 S 520,230 565,205 S 615,150 660,135 S 710,125 745,130 S 800,240 845,335 S 900,340 940,345",
       distances: [
-        { x: 142, y: 312, dist: "2.8 km", color: "#3C7A89" },
-        { x: 300, y: 250, dist: "1.8 km", color: "#2D5A7B" },
-        { x: 462, y: 168, dist: "0.7 km", color: "#2D5A7B" },
-        { x: 612, y: 120, dist: "0.2 km", color: "#C28C2C" },
-        { x: 752, y: 215, dist: "1.4 km", color: "#3C7A89" },
-        { x: 890, y: 315, dist: "1.9 km", color: "#2D5A7B" }
+        { x: 95, y: 355, dist: "1.2 km", color: "#3C7A89" },
+        { x: 175, y: 350, dist: "1.0 km", color: "#2D5A7B" },
+        { x: 260, y: 340, dist: "0.7 km", color: "#C98D2C" },
+        { x: 345, y: 330, dist: "0.4 km", color: "#3C7A89" },
+        { x: 425, y: 310, dist: "0.6 km", color: "#394A3D" },
+        { x: 515, y: 250, dist: "1.2 km", color: "#2D5A7B" },
+        { x: 610, y: 175, dist: "0.7 km", color: "#C98D2C" },
+        { x: 700, y: 140, dist: "0.2 km", color: "#DE9F38" },
+        { x: 795, y: 235, dist: "2.2 km", color: "#2D5A7B" },
+        { x: 895, y: 350, dist: "0.5 km", color: "#2D5A7B" }
+      ]
+    };
+
+    // ROUTE 4 DATA
+    const ROUTE_4_CONFIG = {
+      id: "route4",
+      name: "Route 4 草嶺古道逆向 (主推)",
+      subtitle: "大里車站 ➔ 草嶺慶雲宮 ➔ 草嶺埡口 ➔ 虎字碑 ➔ 雄鎮蠻煙 ➔ 跌死馬橋 ➔ 遠望坑公廁 ➔ 虎子山街 ➔ 福隆車站",
+      badge: "大里起登．便當慶功 V1.3",
+      themeColor: "#1E5B6E",
+      googleMapsUrl: "https://maps.app.goo.gl/JoXFGi8BraWwn1bN8",
+      stats: {
+        dist: "8.7",
+        distSub: "大里直上鞍部＋緩降福隆",
+        ascent: "+345",
+        ascentSub: "天公廟連續石階直上埡口",
+        descent: "-350",
+        descentSub: "越嶺後一路長緩降至平地",
+        maxAlt: "340",
+        maxAltSub: "草嶺古道埡口鞍部",
+        difficulty: "入門大眾",
+        diffSub: "上坡練心肺、下坡護膝、終點便當"
+      },
+      waypoints: [
+        { id: 1, name: "大里車站", badge: "起點集合", alt: 15, lat: 24.966616, lng: 121.922555, distFromPrev: 0, cumDist: 0.0, baseTimeMin: 0, svgX: 55, svgY: 345, textY: 395, badgeY: 425, color: "#1E5B6E", desc: "出站集合、全員點名、領取福委會能量補給、洗手間與行前暖身。靠山面海之靜謐車站。", features: ["台鐵車站", "全員點名", "補給發放", "集合整隊"], caution: "09:15 前抵達會合，區間車到站後盡快出站集結。" },
+        { id: 2, name: "草嶺慶雲宮(天公廟)", badge: "祈福起登", alt: 20, lat: 24.970100, lng: 121.923400, distFromPrev: 0.5, cumDist: 0.5, baseTimeMin: 10, svgX: 145, svgY: 335, textY: 285, badgeY: 258, color: "#2D5A7B", desc: "東北角著名天公廟，最後補水點，祈福平安後正式踏入石階登山口。", features: ["飲水補給", "古廟祈福", "最後補水站"], caution: "自此開始直上連續石階（爬升+320m），調整步伐與呼吸。" },
+        { id: 3, name: "草嶺埡口一帶", badge: "關鍵管理點", alt: 340, lat: 24.979738, lng: 121.926339, distFromPrev: 2.2, cumDist: 2.7, baseTimeMin: 55, svgX: 255, svgY: 130, textY: 82, badgeY: 54, color: "#DE9F38", desc: "全線最高點，鞍部風口極目遠眺龜山島海景與壯闊秋芒。", features: ["【管理節點】", "全員點名確認", "不延伸桃源谷", "統一往福隆下山"], caution: "風勢強勁，務必戴牢帽子，依領隊指示往福隆方向下坡。" },
+        { id: 4, name: "虎字碑", badge: "國定古蹟", alt: 330, lat: 24.981520, lng: 121.926210, distFromPrev: 0.2, cumDist: 2.9, baseTimeMin: 6, svgX: 340, svgY: 135, textY: 180, badgeY: 208, color: "#C98D2C", desc: "劉明燈所題草書「虎」字以鎮風暴，秋季漫山芒花翻騰絕景。", features: ["清代國定古蹟", "芒花美景", "短停合影"], caution: "風口迎風面，合影時注意登山杖與隨身物品。" },
+        { id: 5, name: "雄鎮蠻煙碑", badge: "國定古蹟", alt: 240, lat: 24.985860, lng: 121.925480, distFromPrev: 0.7, cumDist: 3.6, baseTimeMin: 18, svgX: 435, svgY: 205, textY: 155, badgeY: 127, color: "#2D5A7B", desc: "同治六年總兵題刻之巨石摩崖，清幽林蔭，腹地廣大休憩點。", features: ["清代國定古蹟", "林蔭巨石", "短暫休整"], caution: "石階轉為緩降，注意青苔防滑。" },
+        { id: 6, name: "跌死馬橋", badge: "歷史古蹟點", alt: 75, lat: 24.992500, lng: 121.927200, distFromPrev: 1.2, cumDist: 4.8, baseTimeMin: 25, svgX: 530, svgY: 280, textY: 230, badgeY: 202, color: "#394A3D", desc: "昔日木橋狹小商旅騎馬常摔落，日治改建石橋，過橋後坡度轉平。", features: ["百年歷史石橋", "溪谷林蔭", "坡度顯著轉緩"], caution: "連續長下坡即將結束，膝蓋壓力大幅減輕。" },
+        { id: 7, name: "遠望坑梯田登山口", badge: "山徑結束點", alt: 35, lat: 24.999823, lng: 121.929557, distFromPrev: 0.6, cumDist: 5.4, baseTimeMin: 12, svgX: 615, svgY: 315, textY: 365, badgeY: 395, color: "#3C7A89", desc: "正式告別階梯山徑，接回平整柏油鄉道，可收納登山杖。", features: ["梯田景觀", "收納登山杖", "接回柏油路"], caution: "開始轉入鄉道散步路段，注意腳掌放鬆。" },
+        { id: 8, name: "遠望坑親水公園公廁", badge: "下山整隊點", alt: 32, lat: 25.001200, lng: 121.930400, distFromPrev: 0.4, cumDist: 5.8, baseTimeMin: 8, svgX: 695, svgY: 325, textY: 275, badgeY: 248, color: "#C98D2C", desc: "【重要整隊節點】洗手間、洗手洗臉與補水，全員集合確認到齊。", features: ["公廁補水", "重要整隊點", "全員到齊確認"], caution: "⚠️ 本處公廁名為無障礙，非指整條步道無障礙。" },
+        { id: 9, name: "草嶺古道福隆路線段", badge: "平緩鄉道", alt: 28, lat: 25.005100, lng: 121.933200, distFromPrev: 0.7, cumDist: 6.5, baseTimeMin: 12, svgX: 775, svgY: 335, textY: 385, badgeY: 415, color: "#2D5A7B", desc: "沿遠望坑水岸綠意鄉道漫步，路面平整好走。", features: ["水岸鄉村", "舒緩步調"], caution: "放鬆小腿肌肉，保持隊形步行。" },
+        { id: 10, name: "虎子山街", badge: "街區接近", alt: 20, lat: 25.010500, lng: 121.938800, distFromPrev: 1.0, cumDist: 7.5, baseTimeMin: 15, svgX: 860, svgY: 340, textY: 295, badgeY: 268, color: "#3C7A89", desc: "福隆後站接近街區，避開大馬路車流，靠邊慢行。", features: ["單行平緩", "避開大路"], caution: "已有一般車輛通行，隊伍單行靠邊。" },
+        { id: 11, name: "福隆車站", badge: "終點慶功", alt: 12, lat: 25.015920, lng: 121.944668, distFromPrev: 1.2, cumDist: 8.7, baseTimeMin: 18, svgX: 945, svgY: 345, textY: 395, badgeY: 425, color: "#1E5B6E", desc: "【活動終點】全員點名大合照，大啖正宗福隆鐵路便當，搭乘台鐵北返。", features: ["採買福隆便當", "台鐵對號大站", "慶功解散", "自駕取車"], caution: "台鐵班次密集（自強/區間快），依劃位或刷卡有序進站搭車。" }
+      ],
+      pathD: "M 55,345 C 95,340 120,338 145,335 S 200,240 255,130 S 300,125 340,135 S 390,175 435,205 S 485,255 530,280 S 575,305 615,315 S 660,320 695,325 S 740,330 775,335 S 820,338 860,340 S 910,342 945,345",
+      distances: [
+        { x: 100, y: 350, dist: "0.5 km", color: "#2D5A7B" },
+        { x: 195, y: 235, dist: "2.2 km", color: "#DE9F38" },
+        { x: 300, y: 140, dist: "0.2 km", color: "#DE9F38" },
+        { x: 390, y: 175, dist: "0.7 km", color: "#C98D2C" },
+        { x: 485, y: 250, dist: "1.2 km", color: "#2D5A7B" },
+        { x: 575, y: 310, dist: "0.6 km", color: "#394A3D" },
+        { x: 655, y: 330, dist: "0.4 km", color: "#3C7A89" },
+        { x: 735, y: 340, dist: "0.7 km", color: "#C98D2C" },
+        { x: 820, y: 350, dist: "1.0 km", color: "#2D5A7B" },
+        { x: 905, y: 355, dist: "1.2 km", color: "#1E5B6E" }
       ]
     };
 
     const CHECKLIST_DATA = [
-      { id: "c1", icon: "fa-shoe-prints", tag: "必備", isOptional: false, title: "中筒登山鞋 / 越野跑鞋 (Hiking Boots)", desc: "確保深齒紋抓地力，防範濕滑石階青苔，避免休閒平底鞋或厚底無齒鞋款。" },
-      { id: "c2", icon: "fa-person-walking-luggage", tag: "建議事項", isOptional: true, title: "登山杖 1～2 支 (Trekking Poles)", desc: "【建議事項，非必要】依個人膝關節與下坡穩定度評估攜帶；下坡連續石階可分擔下肢衝擊力與維持平衡，非強制必備。" },
-      { id: "c3", icon: "fa-shirt", tag: "必備", isOptional: false, title: "三層洋蔥式穿搭 (Layering System)", desc: "排汗羊毛內層 + 保暖刷毛/薄羽絨 + 防風防水外套，陽明山稜線氣候多變且體感偏涼。" },
-      { id: "c4", icon: "fa-bottle-water", tag: "必備", isOptional: false, title: "飲用水 1000 ～ 1500 ml (Water Bottle)", desc: "小油坑及冷水坑遊客中心均備有飲水機可補水，步道中途無水源。" },
-      { id: "c5", icon: "fa-cookie-bite", tag: "必備", isOptional: false, title: "行動乾糧 / 鹽糖 (Trail Snacks)", desc: "高碳水化合物快速補充熱量，預防低血糖引發暈眩或抽筋。" },
-      { id: "c6", icon: "fa-mobile-screen-button", tag: "必備", isOptional: false, title: "離線地圖 GPX 與行動電源 (Power Bank)", desc: "手機預先下載離線軌跡（可由本頁匯出 GPX），避免山區濃霧起伏迷途。" },
-      { id: "c7", icon: "fa-hat-cowboy", tag: "必備", isOptional: false, title: "防風保暖帽 / 遮陽帽 (Beanie / Sun Cap)", desc: "主峰與冷擎步道遮蔭較少，防範稜線強風吹襲頭部造成受涼或高溫曝曬。" },
-      { id: "c8", icon: "fa-id-card", tag: "必備", isOptional: false, title: "悠遊卡 / 一卡通 (Transit Card)", desc: "確認餘額充足（建議預留 100 元以上），供搭乘 108 遊園公車或小15返程。" }
+      { id: "c1", icon: "fa-shoe-prints", tag: "必備", isOptional: false, title: "中筒登山鞋 / 越野跑鞋 (Hiking Boots)", desc: "確保深齒紋抓地力，防範古道濕滑石階青苔，切忌穿著無齒紋平底鞋款。" },
+      { id: "c2", icon: "fa-person-walking-luggage", tag: "建議事項", isOptional: true, title: "登山杖 1～2 支 (Trekking Poles)", desc: "【建議事項，非必要】大里上攀埡口可借力分擔大腿負擔，越嶺下坡可輔助膝關節減震。" },
+      { id: "c3", icon: "fa-shirt", tag: "必備", isOptional: false, title: "三層洋蔥式穿搭 (Layering System)", desc: "排汗透氣底層 + 保暖中層 + 防風防水外層，埡口迎風面風勢強烈請穿戴牢固。" },
+      { id: "c4", icon: "fa-bottle-water", tag: "必備", isOptional: false, title: "飲用水 1000 ～ 1500 ml (Water Bottle)", desc: "大里天公廟、遠望坑公廁及福隆車站皆有補水點，山徑路段無額外補水處。" },
+      { id: "c5", icon: "fa-cookie-bite", tag: "必備", isOptional: false, title: "行動乾糧 / 鹽糖 (Trail Snacks)", desc: "福委會集合將發放能量凍飲與能量棒，亦可自備喜愛之零食以備隨時補給。" },
+      { id: "c6", icon: "fa-mobile-screen-button", tag: "必備", isOptional: false, title: "離線地圖 GPX 與行動電源 (Power Bank)", desc: "手機預先下載離線軌跡（可由本頁匯出 GPX），以備山區氣候驟變使用。" },
+      { id: "c7", icon: "fa-hat-cowboy", tag: "必備", isOptional: false, title: "防風保暖帽 / 遮陽帽 (Beanie / Sun Cap)", desc: "埡口風勢強勁且開闊處遮蔭少，防範強風受涼頭痛或烈日高溫曬傷。" },
+      { id: "c8", icon: "fa-id-card", tag: "必備", isOptional: false, title: "悠遊卡 / 一卡通 (Transit Card)", desc: "確認餘額充足（建議預留 200 元以上），供搭乘台鐵區間車與進出站感應。" }
     ];
 
-    let currentRouteConfig = ROUTE_1_CONFIG;
+    let currentRouteConfig = ROUTE_4_CONFIG;
     let WAYPOINTS = currentRouteConfig.waypoints;
     let currentMultiplier = 1.0;
     let checkedWaypoints = new Set();
@@ -1186,58 +749,72 @@
       const isRoute1 = currentRouteConfig.id === "route1";
       const isRoute2 = currentRouteConfig.id === "route2";
       const isRoute3 = currentRouteConfig.id === "route3";
+      const isRoute4 = currentRouteConfig.id === "route4";
 
       const qixingZone = document.getElementById('svg-zone-qixing');
       const qixingTxt = document.getElementById('svg-txt-qixing');
       const menghuanTxt = document.getElementById('svg-txt-menghuan');
       const qingtiangangTxt = document.getElementById('svg-txt-qingtiangang');
 
-      if (qixingZone) qixingZone.style.opacity = isRoute1 ? "0.8" : (isRoute2 ? "0.2" : "0.1");
+      if (qixingZone) qixingZone.style.opacity = isRoute1 ? "0.8" : (isRoute2 ? "0.2" : "0.08");
+      
       if (qixingTxt) {
-        qixingTxt.textContent = isRoute3 ? "【草嶺古道歷史山海稜線】" : "【七星山系高海拔稜線】";
-        qixingTxt.style.opacity = isRoute2 ? "0.3" : "0.9";
-      }
-      if (menghuanTxt) {
-        menghuanTxt.textContent = isRoute3 ? "遠望坑水岸與梯田區" : "夢幻湖濕地保護區";
-        menghuanTxt.setAttribute('y', isRoute3 ? '425' : '395');
-      }
-      if (qingtiangangTxt) {
-        qingtiangangTxt.textContent = isRoute3 ? "大里海岸天公廟終點" : "擎天崗草原台地";
+        if (isRoute4) {
+          qixingTxt.textContent = "【草嶺古道逆向山海線：大里起登 ➔ 鞍部 ➔ 福隆】";
+        } else if (isRoute3) {
+          qixingTxt.textContent = "【草嶺古道正向山海線：福隆 ➔ 鞍部 ➔ 大里】";
+        } else {
+          qixingTxt.textContent = "【七星山系高海拔稜線】";
+        }
       }
 
-      let trailGradient = "url(#autumnTrailGrad)";
-      if (isRoute2) trailGradient = "url(#chillTrailGrad)";
-      if (isRoute3) trailGradient = "url(#oceanTrailGrad)";
+      if (menghuanTxt) {
+        menghuanTxt.textContent = (isRoute3 || isRoute4) ? "遠望坑水岸與梯田區" : "夢幻湖濕地保護區";
+      }
+
+      if (qingtiangangTxt) {
+        if (isRoute4) {
+          qingtiangangTxt.textContent = "福隆便當慶功終點站";
+        } else if (isRoute3) {
+          qingtiangangTxt.textContent = "大里天公廟終點站";
+        } else {
+          qingtiangangTxt.textContent = "擎天崗草原台地";
+        }
+      }
+
+      let trailColor = "#1E5B6E";
+      if (isRoute1) trailColor = "#BD5738";
+      if (isRoute2) trailColor = "#4A7B82";
+      if (isRoute3) trailColor = "#2D5A7B";
 
       pathsContainer.innerHTML = `
         <path d="${currentRouteConfig.pathD}"
               fill="none" stroke="#FAF6EE" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
         <path id="svg-trail-path" d="${currentRouteConfig.pathD}"
-              fill="none" stroke="${trailGradient}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+              fill="none" stroke="${trailColor}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
         <path d="${currentRouteConfig.pathD}"
               fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="6 6" stroke-linecap="round"/>
       `;
 
       distContainer.innerHTML = currentRouteConfig.distances.map(d => `
-        <g font-size="11.5" font-weight="700" text-anchor="middle">
-          <rect x="${d.x - 25}" y="${d.y - 10}" width="50" height="20" rx="10" fill="#FAF6EE" stroke="${d.color}" stroke-width="1" filter="url(#woodShadow)"/>
-          <text x="${d.x}" y="${d.y + 4}" fill="${d.color}">${d.dist}</text>
+        <g font-size="12" font-weight="700" text-anchor="middle">
+          <rect x="${d.x - 27}" y="${d.y - 11}" width="54" height="22" rx="11" fill="#FAF6EE" stroke="${d.color}" stroke-width="1.2" filter="url(#woodShadow)"/>
+          <text x="${d.x}" y="${d.y + 4.5}" fill="${d.color}">${d.dist}</text>
         </g>
       `).join('');
 
       nodesContainer.innerHTML = currentRouteConfig.waypoints.map(wp => {
-        const isPeak = wp.badge === "最高峰" || wp.badge === "最高鞍部";
-        const pinRadius = isPeak ? 15 : 13;
-        const displayName = wp.mapName || wp.name;
+        const isPeak = wp.badge === "最高峰" || wp.badge === "最高鞍部" || wp.badge === "關鍵管理點";
+        const pinRadius = isPeak ? 16 : 13.5;
         
         return `
           <g class="svg-node" id="svg-node-${wp.id}" data-id="${wp.id}">
             <circle cx="${wp.svgX}" cy="${wp.svgY}" r="${pinRadius}" fill="${wp.color}" stroke="#FAF6EE" stroke-width="2.5" class="main-pin" filter="url(#woodShadow)"/>
-            <text x="${wp.svgX}" y="${wp.svgY + 4.5}" fill="#FAF6EE" font-size="13.5" font-weight="bold" text-anchor="middle">${wp.id}</text>
-            <text x="${wp.svgX}" y="${wp.textY}" font-size="13.5" font-weight="800" fill="#FAF6EE" stroke="#FAF6EE" stroke-width="3.5" stroke-linejoin="round" text-anchor="middle">${displayName}</text>
-            <text x="${wp.svgX}" y="${wp.textY}" font-size="13.5" font-weight="800" fill="#33312E" text-anchor="middle">${displayName}</text>
-            <rect x="${wp.svgX - 48}" y="${wp.badgeY - 14}" width="96" height="19" rx="4.5" fill="#FAF6EE" stroke="${wp.color}" stroke-width="1" filter="url(#woodShadow)"/>
-            <text x="${wp.svgX}" y="${wp.badgeY}" font-size="11" fill="${wp.color}" font-weight="700" text-anchor="middle">${wp.alt}m • ${wp.badge}</text>
+            <text x="${wp.svgX}" y="${wp.svgY + 4.5}" fill="#FAF6EE" font-size="12" font-weight="bold" text-anchor="middle">${wp.id}</text>
+            
+            <text x="${wp.svgX}" y="${wp.textY}" font-size="13.5" font-weight="bold" fill="#33312E" stroke="#FAF6EE" stroke-width="3" stroke-linejoin="round" paint-order="stroke fill" text-anchor="middle">${wp.name}</text>
+            <rect x="${wp.svgX - 48}" y="${wp.badgeY - 15}" width="96" height="20" rx="4" fill="#FAF6EE" stroke="${wp.color}" stroke-width="1"/>
+            <text x="${wp.svgX}" y="${wp.badgeY}" font-size="10.5" fill="${wp.color}" font-weight="700" text-anchor="middle">${wp.alt}m • ${wp.badge}</text>
           </g>
         `;
       }).join('');
@@ -1258,27 +835,37 @@
       const isRoute1 = currentRouteConfig.id === "route1";
       const isRoute2 = currentRouteConfig.id === "route2";
       const isRoute3 = currentRouteConfig.id === "route3";
+      const isRoute4 = currentRouteConfig.id === "route4";
 
       const gradient = ctx.createLinearGradient(0, 0, 0, 220);
-      let lineColor = '#394A3D';
-      let pointColor = '#BD5738';
-      let hoverColor = '#C98D2C';
+      let lineColor = '#1E5B6E';
+      let pointColor = '#DE9F38';
+      let hoverColor = '#BD5738';
 
-      if (isRoute2) {
-        gradient.addColorStop(0, 'rgba(74, 123, 130, 0.35)');
-        gradient.addColorStop(1, 'rgba(221, 161, 94, 0.05)');
-        lineColor = '#4A7B82';
-        pointColor = '#DDA15E';
-        hoverColor = '#52796F';
+      if (isRoute4) {
+        gradient.addColorStop(0, 'rgba(30, 91, 110, 0.45)');
+        gradient.addColorStop(1, 'rgba(222, 159, 56, 0.05)');
+        lineColor = '#1E5B6E';
+        pointColor = '#DE9F38';
+        hoverColor = '#C98D2C';
       } else if (isRoute3) {
         gradient.addColorStop(0, 'rgba(45, 90, 123, 0.40)');
         gradient.addColorStop(1, 'rgba(194, 140, 44, 0.05)');
         lineColor = '#2D5A7B';
         pointColor = '#C28C2C';
         hoverColor = '#3C7A89';
+      } else if (isRoute2) {
+        gradient.addColorStop(0, 'rgba(74, 123, 130, 0.35)');
+        gradient.addColorStop(1, 'rgba(221, 161, 94, 0.05)');
+        lineColor = '#4A7B82';
+        pointColor = '#DDA15E';
+        hoverColor = '#52796F';
       } else {
-        gradient.addColorStop(0, 'rgba(57, 74, 61, 0.35)');
-        gradient.addColorStop(1, 'rgba(201, 141, 44, 0.05)');
+        gradient.addColorStop(0, 'rgba(189, 87, 56, 0.35)');
+        gradient.addColorStop(1, 'rgba(57, 74, 61, 0.05)');
+        lineColor = '#BD5738';
+        pointColor = '#394A3D';
+        hoverColor = '#C98D2C';
       }
 
       const labels = WAYPOINTS.map(w => w.name);
@@ -1288,9 +875,10 @@
         elevationChartInstance.destroy();
       }
 
-      const yMin = isRoute3 ? 0 : 700;
-      const yMax = isRoute3 ? 400 : (isRoute1 ? 1180 : 960);
-      const yStep = isRoute3 ? 50 : (isRoute1 ? 100 : 50);
+      const isCaoling = isRoute3 || isRoute4;
+      const yMin = isCaoling ? 0 : 700;
+      const yMax = isCaoling ? 380 : (isRoute1 ? 1180 : 960);
+      const yStep = isCaoling ? 50 : (isRoute1 ? 100 : 50);
 
       elevationChartInstance = new Chart(ctx, {
         type: 'line',
@@ -1303,7 +891,7 @@
             backgroundColor: gradient,
             borderWidth: 3,
             fill: true,
-            tension: 0.35,
+            tension: 0.3,
             pointBackgroundColor: pointColor,
             pointBorderColor: '#FAF6EE',
             pointBorderWidth: 2,
@@ -1375,7 +963,7 @@
             x: {
               grid: { display: false },
               ticks: {
-                font: { size: 10, family: "'Noto Sans TC', sans-serif" },
+                font: { size: 9.5, family: "'Noto Sans TC', sans-serif" },
                 color: '#8C7A6B',
                 maxRotation: 25,
                 minRotation: 0,
@@ -1418,16 +1006,137 @@
       const typeBadge = document.getElementById('transit-route-type-badge');
       const container = document.getElementById('transit-content-container');
 
-      if (currentRouteConfig.id === "route3") {
+      if (currentRouteConfig.id === "route4") {
+        if (typeBanner) {
+          typeBanner.className = "bg-ocean-pale border border-ocean/30 rounded-xl p-3 text-ocean-dark flex items-center justify-between";
+          typeText.textContent = "逆向越嶺穿越（大里起登 ➔ 福隆便當慶功）";
+          typeBadge.className = "text-[11px] bg-cream-50 text-ocean font-semibold px-2 py-0.5 rounded-md border border-ocean/20";
+          typeBadge.textContent = "主推逆向線";
+        }
+
+        container.innerHTML = `
+          <!-- 一、集合與交通搭乘資訊 (官方最新發布) -->
+          <div class="border border-ocean/40 rounded-xl p-3.5 bg-cream-100 shadow-2xs">
+            <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
+              <h4 class="font-bold text-ocean text-sm flex items-center gap-2">
+                <i class="fa-solid fa-flag text-ocean"></i> 一、集合與交通搭乘資訊
+              </h4>
+              <span class="text-[10px] bg-ocean text-white font-semibold px-2 py-0.5 rounded-md">最新更新</span>
+            </div>
+            
+            <div class="space-y-2.5 text-charcoal leading-relaxed">
+              <!-- 1. 團體搭車同仁 -->
+              <div class="bg-cream-50 p-3 rounded-lg border border-cream-300/80">
+                <div class="font-bold text-ocean flex items-center gap-1.5 mb-1.5 text-xs">
+                  <i class="fa-solid fa-users text-ocean"></i> 1. 團體搭車同仁（台北車站集合）
+                </div>
+                <ul class="text-[11.5px] space-y-1 text-charcoal pl-1">
+                  <li>• <strong>集合時間</strong>：<span class="text-rust font-bold">07:00 集合完成</span>（遲到者逾時不候）。</li>
+                  <li>• <strong>集合地點</strong>：台北火車站 <strong>購票大廳</strong>。</li>
+                  <li>• <strong>預計車次</strong>：搭乘 <strong>台鐵 4148 車次區間車</strong>（預計 <strong>09:15 抵達大里車站</strong>）。</li>
+                </ul>
+              </div>
+
+              <!-- 2. 自行前往同仁 -->
+              <div class="bg-cream-50 p-3 rounded-lg border border-cream-300/80">
+                <div class="font-bold text-forest flex items-center gap-1.5 mb-1.5 text-xs">
+                  <i class="fa-solid fa-person-walking text-forest"></i> 2. 自行前往同仁（大里車站集合）
+                </div>
+                <ul class="text-[11.5px] space-y-1 text-charcoal pl-1">
+                  <li>• <strong>集合時間</strong>：請於 <span class="text-rust font-bold">09:15 前</span> 抵達大里車站集合。</li>
+                  <li>• <strong>集合地點</strong>：大里車站 
+                    <a href="https://maps.app.goo.gl/7oqhUDNi2bwNJHvp6" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-ocean hover:text-rust font-bold underline underline-offset-2 ml-1" title="開啟大里車站導航">
+                      <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> 開啟 Google 地圖導航
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- 3. 行前補給發放 -->
+              <div class="bg-mustard-pale/90 p-3 rounded-lg border border-mustard/40 text-[11.5px]">
+                <div class="font-bold text-mustard-light flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-gift text-mustard"></i> 📌 行前補給發放
+                </div>
+                <p>• <strong>發放單位</strong>：2026 今展福委會</p>
+                <p>• <strong>發放項目</strong>：出發前於集合地點發放<strong>能量棒、能量凍飲、巧克力</strong>等便攜行動補給品。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 二、自駕停車建議 -->
+          <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
+            <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2">
+              <h4 class="font-bold text-charcoal text-xs sm:text-sm flex items-center gap-2">
+                <i class="fa-solid fa-car text-mustard"></i> 二、自駕車主取車方案比較
+              </h4>
+              <span class="text-[10px] bg-cream-200 text-taupe font-semibold px-2 py-0.5 rounded-md">自駕必看</span>
+            </div>
+            <div class="space-y-1.5 text-[11.5px] text-taupe leading-relaxed">
+              <p>• <strong class="text-charcoal">推薦停福隆</strong>：早晨直接將車輛停放於「福隆車站公有停車場」，搭乘 1 站區間車（約 7 分鐘）於 09:15 前抵達大里集合起登；健行抵達終點福隆後，採買便當即可直接取車離開！</p>
+              <p>• <strong class="text-charcoal">車停大里</strong>：完賽抵達福隆後，於福隆車站刷悠遊卡搭乘南下區間車 1 站（約 7～8 分鐘）回大里車站取車。</p>
+            </div>
+          </div>
+
+          <!-- 三、終點慶功與返程 -->
+          <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
+            <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
+              <h4 class="font-bold text-mustard-light text-sm flex items-center gap-2">
+                <i class="fa-solid fa-box-open text-mustard"></i> 三、終點慶功｜福隆便當大快朵頤
+              </h4>
+              <span class="text-[10px] bg-mustard-pale text-mustard font-semibold px-2 py-0.5 rounded-md">大站返程</span>
+            </div>
+
+            <div class="space-y-2 text-charcoal">
+              <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
+                <div class="font-bold text-ocean flex items-center gap-1.5 mb-1">
+                  <span class="bg-ocean text-cream-50 text-[10px] px-1.5 py-0.2 rounded font-bold">慶功</span>
+                  <span>正宗福隆鐵路便當現買現吃</span>
+                </div>
+                <p class="text-[11.5px] text-taupe">步道出口即為福隆火車站，站前多家老字號便當店（鄉野、宜隆等），完賽後直接慶功，犒賞體力！</p>
+              </div>
+
+              <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
+                <div class="font-bold text-forest flex items-center gap-1.5 mb-1">
+                  <span class="bg-forest text-cream-50 text-[10px] px-1.5 py-0.2 rounded font-bold">返程</span>
+                  <span>台鐵對號大站．班次密集</span>
+                </div>
+                <p class="text-[11.5px] text-taupe">福隆為宜蘭線主要停靠大站，自強號、莒光號及區間快車班次極為密集，比小站大里更易劃位直達台北、板橋。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 四、體能與安全提醒 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div class="border border-mustard/40 bg-mustard-pale rounded-xl p-3">
+              <h5 class="font-bold text-mustard-light text-xs flex items-center gap-1.5 mb-1.5">
+                <i class="fa-solid fa-heart-pulse text-mustard"></i> 體能與下坡護膝優勢
+              </h5>
+              <p class="text-[11px] text-charcoal leading-relaxed">
+                大里端連續石階爬升約 +320m 較考驗心肺；但越過埡口後往福隆為<strong>平緩長降坡與柏油路</strong>，大幅降低下坡對膝關節的長期衝擊。
+              </p>
+            </div>
+
+            <div class="border border-cream-300 bg-cream-100 rounded-xl p-3">
+              <h5 class="font-bold text-ocean text-xs flex items-center gap-1.5 mb-1.5">
+                <i class="fa-solid fa-circle-check text-ocean"></i> 領隊管理守則
+              </h5>
+              <ul class="text-[11px] text-charcoal space-y-1 leading-relaxed list-disc list-inside">
+                <li>大里出站與天公廟行前務必全員到齊再起登。</li>
+                <li>埡口鞍部嚴格點名，<strong>不延伸桃源谷</strong>，統一往下福隆。</li>
+                <li>遠望坑親水公園公廁進行全員大會合。</li>
+              </ul>
+            </div>
+          </div>
+        `;
+      } else if (currentRouteConfig.id === "route3") {
         if (typeBanner) {
           typeBanner.className = "bg-[#E8F0F5] border border-[#2D5A7B]/30 rounded-xl p-3 text-[#2D5A7B] flex items-center justify-between";
           typeText.textContent = "鐵道越嶺行程（福隆車站起點 ➔ 大里車站終點）";
           typeBadge.className = "text-[11px] bg-cream-50 text-[#2D5A7B] font-semibold px-2 py-0.5 rounded-md border border-[#2D5A7B]/20";
-          typeBadge.textContent = "雙向火車超便利";
+          typeBadge.textContent = "正向經典線";
         }
 
         container.innerHTML = `
-          <!-- 一、去程交通 -->
           <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
             <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
               <h4 class="font-bold text-[#2D5A7B] text-sm flex items-center gap-2">
@@ -1441,19 +1150,18 @@
                 <div class="font-bold text-[#2D5A7B] flex items-center gap-1.5 mb-1">
                   <i class="fa-solid fa-train-subway text-xs"></i> 台北 / 宜蘭出發搭火車
                 </div>
-                <p class="text-[11.5px]">搭乘台鐵宜蘭線<strong>自強號、莒光號或區間快車</strong>直達<strong>「福隆火車站」</strong>。刷悠遊卡／一卡通或預訂電子車票出站即為集合廣場。</p>
+                <p class="text-[11.5px]">搭乘台鐵宜蘭線自強號、莒光號或區間快車直達「福隆火車站」。出站即為集合廣場，可先採購便當行動糧。</p>
               </div>
 
               <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
                 <div class="font-bold text-charcoal flex items-center gap-1.5 mb-1">
-                  <i class="fa-solid fa-car text-xs text-mustard"></i> 自行開車（停放福隆車站停車場）
+                  <i class="fa-solid fa-car text-xs text-mustard"></i> 自行開車（停放福隆車站）
                 </div>
-                <p class="text-[11.5px] text-taupe">導航至「福隆火車站公有停車場」或福隆遊客中心停車場停妥車輛，健行完畢可直接從大里搭火車一站返回取車。</p>
+                <p class="text-[11.5px] text-taupe">導航至「福隆火車站公有停車場」停妥車輛，健行完畢可直接從大里搭火車一站返回取車。</p>
               </div>
             </div>
           </div>
 
-          <!-- 二、回程交通 -->
           <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
             <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
               <h4 class="font-bold text-[#C28C2C] text-sm flex items-center gap-2">
@@ -1468,179 +1176,73 @@
                   <span class="bg-[#2D5A7B] text-cream-50 text-[10px] px-1.5 py-0.2 rounded font-bold">方案 A</span>
                   <span>大里車站搭區間車返台北 / 基隆</span>
                 </div>
-                <p class="text-[11.5px] text-taupe">步行出步道天公廟後即達<strong>大里火車站</strong>，搭乘台鐵北上區間車直達瑞芳、七堵、台北；或於福隆站轉乘自強號快速返程。</p>
+                <p class="text-[11.5px] text-taupe">步行出步道天公廟後即達大里火車站，搭乘台鐵北上區間車返程；或至福隆站轉乘自強號。</p>
               </div>
 
               <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
                 <div class="font-bold text-[#C28C2C] flex items-center gap-1.5 mb-1">
                   <span class="bg-[#C28C2C] text-cream-50 text-[10px] px-1.5 py-0.2 rounded font-bold">方案 B</span>
-                  <span>國道客運 / 台灣好行（宜蘭端）</span>
+                  <span>自駕取車（大里搭 1 站返福隆）</span>
                 </div>
-                <p class="text-[11.5px] text-taupe">亦可由大里站搭乘區間車南下往礁溪、宜蘭，或於天公廟站牌轉乘宜蘭勁好行公車。</p>
+                <p class="text-[11.5px] text-taupe">於大里站搭乘區間車 1 站（約 7～8 分鐘）即達福隆火車站取車返程。</p>
               </div>
-            </div>
-          </div>
-
-          <!-- 三、自駕取車 -->
-          <div class="border border-[#2D5A7B]/30 rounded-xl p-3.5 bg-[#E8F0F5]/50">
-            <div class="flex items-center justify-between border-b border-[#2D5A7B]/20 pb-2 mb-2.5">
-              <h4 class="font-bold text-[#2D5A7B] text-sm flex items-center gap-2">
-                <i class="fa-solid fa-key text-[#2D5A7B]"></i> 三、自駕者取車指引（大里返福隆）
-              </h4>
-              <span class="text-[10px] bg-cream-50 text-[#2D5A7B] font-semibold px-2 py-0.5 rounded-md border border-[#2D5A7B]/20">火車只要 7 分鐘</span>
-            </div>
-
-            <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300 text-[11.5px] space-y-1.5 text-charcoal">
-              <p>• <strong>火車僅 1 站直達</strong>：於大里火車站刷悠遊卡進站，搭乘北上區間車 1 站（約 7～8 分鐘）即達福隆火車站。</p>
-              <p>• <strong>無須轉乘公車</strong>：相比陽明山需轉車，草嶺古道自駕取車極為輕鬆快速。</p>
-              <p>• 建議抵達大里前先透過「台鐵e訂通」App 查詢北上區間車動態，把握進站時間。</p>
-            </div>
-          </div>
-
-          <!-- 四、中途撤退與提醒 -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <div class="border border-mustard/40 bg-mustard-pale rounded-xl p-3">
-              <h5 class="font-bold text-mustard-light text-xs flex items-center gap-1.5 mb-1.5">
-                <i class="fa-solid fa-shield-heart text-mustard"></i> 中途撤退安全提示
-              </h5>
-              <p class="text-[11px] text-charcoal leading-relaxed">
-                若於「遠望坑」前身體不適可原路折返福隆；過「雄鎮蠻煙」後若遇大雨濃霧，越過埡口下切大里為最短出山路線。
-              </p>
-            </div>
-
-            <div class="border border-cream-300 bg-cream-100 rounded-xl p-3">
-              <h5 class="font-bold text-[#2D5A7B] text-xs flex items-center gap-1.5 mb-1.5">
-                <i class="fa-solid fa-bell text-[#2D5A7B]"></i> 全體同仁乘車提醒
-              </h5>
-              <ul class="text-[11px] text-charcoal space-y-1 leading-relaxed list-disc list-inside">
-                <li>請備妥<strong>悠遊卡 / 一卡通</strong>（台鐵全線可直接感應進出站）。</li>
-                <li>秋季古道石階易生青苔，雨後建議搭配雙杖慢行。</li>
-                <li>埡口迎風面風勢強，防風保暖衣物不可少。</li>
-              </ul>
             </div>
           </div>
         `;
       } else {
-        // Render Route 1 / 2 transit content with both Normal and Reverse directions
         if (typeBanner) {
           typeBanner.className = "bg-rust-pale border border-rust/30 rounded-xl p-3 text-rust-dark flex items-center justify-between";
-          typeText.textContent = "單向縱走行程（支援正向小油坑起登 / 逆向擎天崗起登）";
+          typeText.textContent = "陽明山縱走行程（支援雙向公車搭乘指引）";
           typeBadge.className = "text-[11px] bg-cream-50 text-rust font-semibold px-2 py-0.5 rounded-md border border-rust/20";
-          typeBadge.textContent = "雙向指南 V1.2";
+          typeBadge.textContent = "雙向路線";
         }
 
         container.innerHTML = `
-          <!-- ★★★ 新增：逆走專屬規劃指南 ★★★ -->
-          <div class="border-2 border-rust/60 rounded-xl p-3.5 bg-rust-pale/60 shadow-xs">
-            <div class="flex items-center justify-between border-b border-rust/30 pb-2 mb-2.5">
-              <h4 class="font-bold text-rust-dark text-sm flex items-center gap-2">
-                <i class="fa-solid fa-arrow-right-arrow-left text-rust"></i> 【方案 A：逆走指引】擎天崗起登 ➔ 小油坑結束
+          <div class="border border-ocean/40 rounded-xl p-3.5 bg-ocean-pale/60">
+            <div class="flex items-center justify-between border-b border-ocean/30 pb-2 mb-2.5">
+              <h4 class="font-bold text-ocean-dark text-sm flex items-center gap-2">
+                <i class="fa-solid fa-arrows-spin text-ocean"></i> 逆走推薦方案｜擎天崗起登 ➔ 小油坑結束
               </h4>
-              <span class="text-[10px] bg-rust text-white font-bold px-2 py-0.5 rounded-md">推薦團體集合</span>
+              <span class="text-[10px] bg-white text-ocean font-bold px-2 py-0.5 rounded-md border border-ocean/20">團體發車最優</span>
             </div>
 
-            <div class="space-y-2.5 text-charcoal">
-              <!-- 去程 -->
-              <div class="bg-cream-50 p-2.5 rounded-lg border border-rust/30">
-                <div class="font-bold text-rust-dark flex items-center justify-between mb-1">
-                  <span class="flex items-center gap-1.5">
-                    <i class="fa-solid fa-bus text-xs text-rust"></i> 1. 去程乘車（捷運劍潭站 ➔ 擎天崗）
-                  </span>
-                  <span class="text-[10px] bg-rust-pale text-rust font-semibold px-1.5 py-0.2 rounded">直達免轉乘</span>
+            <div class="space-y-2 text-charcoal text-[11.5px] leading-relaxed">
+              <div class="bg-white/80 p-2.5 rounded-lg border border-ocean/20">
+                <div class="font-bold text-ocean flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-bus text-xs"></i> 去程：劍潭搭 小15 直達擎天崗（免轉乘）
                 </div>
-                <ul class="text-[11px] text-charcoal space-y-1 list-disc list-inside leading-relaxed">
-                  <li><strong>乘車方式</strong>：於捷運劍潭站搭乘 <strong>小15（首都客運）</strong> 直達擎天崗。去程免轉乘，大幅簡化早晨集合與點名流程。</li>
-                  <li><strong>劍潭端平日參考班次</strong>：<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">07:40</code>、<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">08:00</code>、<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">08:20</code>、<code class="bg-cream-200 px-1 py-0.2 rounded font-bold text-rust">08:40</code>。</li>
-                  <li><strong>約 40 人團體分流建議</strong>：小15 單一班次載客量有限，切勿承諾全團搭同一班車！建議採<strong>分批上車</strong>（例如分流為 08:00 與 08:20 兩批），先抵達擎天崗者於指定地點（如遊客服務站走廊）等候，全員會合完成點名後統一啟程。</li>
-                </ul>
+                <p>• <strong>平日劍潭發車參考</strong>：07:40、08:00、08:20、08:40。</p>
+                <p>• <strong>40人大型團隊分流</strong>：建議分為 08:00 與 08:20 兩批，先抵達者於擎天崗遊客中心等候，全員到齊完成點名後正式起登。</p>
               </div>
 
-              <!-- 回程 -->
-              <div class="bg-cream-50 p-2.5 rounded-lg border border-rust/30">
-                <div class="font-bold text-forest flex items-center justify-between mb-1">
-                  <span class="flex items-center gap-1.5">
-                    <i class="fa-solid fa-rotate-left text-xs text-forest"></i> 2. 回程乘車（小油坑 ➔ 捷運劍潭站）
-                  </span>
-                  <span class="text-[10px] bg-forest-pale text-forest font-semibold px-1.5 py-0.2 rounded">兩段轉乘</span>
+              <div class="bg-white/80 p-2.5 rounded-lg border border-ocean/20">
+                <div class="font-bold text-rust-dark flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-clock-rotate-left text-xs"></i> 回程：小油坑搭 108 轉 紅5（注意環狀線繞行）
                 </div>
-                <div class="text-[11px] text-charcoal space-y-1 leading-relaxed">
-                  <p>• <strong>第一段</strong>：於「小油坑服務站」搭乘 <strong>108 全程車</strong> 至「陽明山公車總站」。</p>
-                  <p>• <strong>第二段</strong>：於陽明山公車總站轉乘 <strong>紅5</strong> 返回「捷運劍潭站」。</p>
-                  <div class="mt-1.5 p-2 bg-mustard-pale rounded border border-mustard/40 text-[10.5px] text-charcoal space-y-0.5">
-                    <p class="font-bold text-mustard-light"><i class="fa-solid fa-triangle-exclamation"></i> 關鍵回程提醒：</p>
-                    <p>① <strong>108 環狀線繞行</strong>：從小油坑搭 108 返總站係沿園區環狀路線行駛（經二子坪、竹子湖），非直線下山，需預留較長車程時間。</p>
-                    <p>② <strong>班距與候車安排</strong>：108 平日班距約 30–40 分鐘，建議將 <strong>約 13:00 定義為「完成點名並開始分組候車」</strong>，抵達劍潭時間須視當日班距與轉車狀況寬估。</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 自駕與綜合評估 -->
-              <div class="bg-cream-50 p-2.5 rounded-lg border border-rust/30 text-[11px] space-y-1">
-                <div class="font-bold text-charcoal flex items-center gap-1.5 mb-0.5">
-                  <i class="fa-solid fa-car text-xs text-mustard"></i> 3. 逆走自駕團員取車動線：
-                </div>
-                <p>• <strong>車停擎天崗（起點）</strong>：健行結束後，需從小油坑搭乘 <strong>108 環狀線</strong> 車次回到擎天崗取車。</p>
-                <p>• <strong>車停小油坑（終點）</strong>：早晨需自行先前往擎天崗集合會合，健行抵達終點後可直接取車下山。</p>
-                <div class="mt-1 pt-1.5 border-t border-cream-300 text-[10.5px] text-rust-dark font-medium">
-                  <strong>4. 正反向交通綜合評估：</strong>
-                  去程直達免轉乘，大幅提升早晨集合效率；但<strong>改為逆向後，上下坡方向完全相反</strong>（東峰下切變連續登階爬升），步行時間與體能消耗需由領隊重新審視核對，不可直接套用原時程！
-                </div>
+                <p>• 第一段：從小油坑搭 <strong>108 全程車</strong> 至「陽明山公車總站」。</p>
+                <p>• 第二段：總站轉乘 <strong>紅5</strong> 返回「捷運劍潭站」。</p>
+                <p class="text-rust-dark font-medium">⚠️ 108 為園區環狀線，從小油坑回總站會繞經二子坪，非直線下山，需預留車程！建議以約 13:00 為「點名並分組候車」基準點。</p>
               </div>
             </div>
           </div>
 
-          <!-- 原方案：正向縱走（小油坑起登 ➔ 擎天崗終點） -->
           <div class="border border-cream-300 rounded-xl p-3.5 bg-cream-100">
-            <div class="flex items-center justify-between border-b border-cream-300 pb-2 mb-2.5">
-              <h4 class="font-bold text-forest text-sm flex items-center gap-2">
-                <i class="fa-solid fa-compass text-forest"></i> 【方案 B：正向指引】小油坑起登 ➔ 擎天崗結束
-              </h4>
-              <span class="text-[10px] bg-forest-pale text-forest font-semibold px-2 py-0.5 rounded-md">原定路線</span>
-            </div>
-            
-            <div class="space-y-2 text-charcoal leading-relaxed">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
-                  <div class="font-bold text-forest flex items-center gap-1.5 mb-1">
-                    <i class="fa-solid fa-train-subway text-xs"></i> 去程（劍潭站）
-                  </div>
-                  <p class="text-[11px]">搭 <strong class="text-charcoal">紅5</strong> 至陽明山總站，轉乘 <strong class="text-rust">108 全程車</strong> 至小油坑。</p>
-                </div>
-                <div class="bg-cream-50 p-2.5 rounded-lg border border-cream-300/80">
-                  <div class="font-bold text-rust flex items-center gap-1.5 mb-1">
-                    <i class="fa-solid fa-flag-checkered text-xs"></i> 回程（擎天崗）
-                  </div>
-                  <p class="text-[11px]">搭乘 <strong class="text-rust">小15</strong> 直達捷運劍潭站；或搭 108 返總站轉紅5。</p>
-                </div>
-              </div>
-
-              <div class="bg-cream-50 p-2 rounded-lg border border-cream-300 text-[11px] text-taupe">
-                <strong>正向自駕取車提醒</strong>：擎天崗無法原路直達小油坑，需搭 108 至總站轉「108 全程車」回小油坑取車。
-              </div>
-            </div>
+            <h4 class="font-bold text-forest text-sm flex items-center gap-2 border-b border-cream-300 pb-2 mb-2">
+              <i class="fa-solid fa-circle-play text-forest"></i> 正向原案｜小油坑起登 ➔ 擎天崗下山
+            </h4>
+            <p class="text-[11.5px] text-charcoal leading-relaxed">
+              去程劍潭搭 <strong>紅5</strong>（或北車 260）至陽明山總站，轉乘 <strong>108 全程車</strong> 至小油坑；回程於擎天崗搭乘 <strong>小15</strong> 直達捷運劍潭站。
+            </p>
           </div>
 
-          <!-- 中途安全撤退點與乘車通則 -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <div class="border border-mustard/40 bg-mustard-pale rounded-xl p-3">
-              <h5 class="font-bold text-mustard-light text-xs flex items-center gap-1.5 mb-1.5">
-                <i class="fa-solid fa-shield-heart text-mustard"></i> 中途安全撤退點（冷水坑）
-              </h5>
-              <p class="text-[11px] text-charcoal leading-relaxed">
-                不論正走或逆走，<strong>冷水坑服務站（標高760m）</strong>皆為最重要的中繼安全撤退點，可在此直接搭乘<strong>小15</strong>或<strong>108公車</strong>撤退下山。
-              </p>
-            </div>
-
-            <div class="border border-cream-300 bg-cream-100 rounded-xl p-3">
-              <h5 class="font-bold text-forest text-xs flex items-center gap-1.5 mb-1.5">
-                <i class="fa-solid fa-bell text-forest"></i> 全體同仁乘車提醒
-              </h5>
-              <ul class="text-[11px] text-charcoal space-y-1 leading-relaxed list-disc list-inside">
-                <li>請隨身攜帶<strong>悠遊卡 / 一卡通</strong>並儲值充足金額。</li>
-                <li>山區建議使用「大臺北公車」App 掌握即時班次動態。</li>
-                <li>團體人數較多時，請務必寬估候車與轉乘銜接時間。</li>
-              </ul>
-            </div>
+          <div class="border border-taupe/40 rounded-xl p-3.5 bg-taupe-pale">
+            <h4 class="font-bold text-charcoal text-sm flex items-center gap-2 border-b border-taupe/30 pb-2 mb-2">
+              <i class="fa-solid fa-car text-forest"></i> 自駕團員取車動線
+            </h4>
+            <p class="text-[11.5px] text-taupe leading-relaxed">
+              • <strong>車停起點（擎天崗）</strong>：逆走完賽後，需從小油坑搭乘 108 環狀線返回擎天崗取車。<br>
+              • <strong>車停終點（小油坑）</strong>：早晨需自行先前往擎天崗集合，健行結束後即可直接開車返程。
+            </p>
           </div>
         `;
       }
@@ -1651,32 +1253,64 @@
       const btnRoute1 = document.getElementById('btn-route-1');
       const btnRoute2 = document.getElementById('btn-route-2');
       const btnRoute3 = document.getElementById('btn-route-3');
+      const btnRoute4 = document.getElementById('btn-route-4');
       const gmapsLink = document.getElementById('btn-google-maps');
+      const mapTitle = document.getElementById('map-header-title');
+      const mapBadge = document.getElementById('map-dir-badge');
 
-      [btnRoute1, btnRoute2, btnRoute3].forEach(btn => {
-        if (btn) btn.className = "route-switch-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-cream-200/90 hover:text-white hover:bg-black/20 transition";
-      });
+      if (btnRoute1) {
+        btnRoute1.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-cream-300/50 hover:text-cream-100 hover:bg-white/10 opacity-60 hover:opacity-100 transition border border-dashed border-white/15";
+      }
+      if (btnRoute2) {
+        btnRoute2.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-cream-300/50 hover:text-cream-100 hover:bg-white/10 opacity-60 hover:opacity-100 transition border border-dashed border-white/15";
+      }
+      if (btnRoute3) {
+        btnRoute3.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-medium text-cream-300/50 hover:text-cream-100 hover:bg-white/10 opacity-60 hover:opacity-100 transition border border-dashed border-white/15";
+      }
+      if (btnRoute4) {
+        btnRoute4.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold text-cream-200/90 hover:text-white hover:bg-black/20 transition";
+      }
 
       if (routeId === "route1") {
         currentRouteConfig = ROUTE_1_CONFIG;
-        btnRoute1.className = "route-switch-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-rust text-white shadow-xs";
+        if (btnRoute1) {
+          btnRoute1.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition bg-rust text-white shadow-xs opacity-100 border border-rust";
+        }
         if (badgeIndicator) {
           badgeIndicator.className = "text-xs bg-rust text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs transition-colors";
         }
+        if (mapTitle) mapTitle.textContent = "全線步道路網導覽圖（縱走拓撲示意）";
+        if (mapBadge) mapBadge.innerHTML = `<i class="fa-solid fa-compass text-[11px] mr-1"></i> 西北往東南向 (小油坑➔擎天崗)`;
       } else if (routeId === "route2") {
         currentRouteConfig = ROUTE_2_CONFIG;
-        btnRoute2.className = "route-switch-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#4A7B82] text-white shadow-xs";
+        if (btnRoute2) {
+          btnRoute2.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition bg-[#4A7B82] text-white shadow-xs opacity-100 border border-[#4A7B82]";
+        }
         if (badgeIndicator) {
           badgeIndicator.className = "text-xs bg-[#4A7B82] text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs transition-colors";
         }
-      } else {
+        if (mapTitle) mapTitle.textContent = "全線步道路網導覽圖（中湖腰繞休閒拓撲示意）";
+        if (mapBadge) mapBadge.innerHTML = `<i class="fa-solid fa-compass text-[11px] mr-1"></i> 西北往東南向 (小油坑➔擎天崗)`;
+      } else if (routeId === "route3") {
         currentRouteConfig = ROUTE_3_CONFIG;
         if (btnRoute3) {
-          btnRoute3.className = "route-switch-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#2D5A7B] text-white shadow-xs";
+          btnRoute3.className = "route-switch-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition bg-[#2D5A7B] text-white shadow-xs opacity-100 border border-[#2D5A7B]";
         }
         if (badgeIndicator) {
           badgeIndicator.className = "text-xs bg-[#2D5A7B] text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs transition-colors";
         }
+        if (mapTitle) mapTitle.textContent = "全線步道路網導覽圖（正向越嶺拓撲示意）";
+        if (mapBadge) mapBadge.innerHTML = `<i class="fa-solid fa-compass text-[11px] mr-1"></i> 西北往東南向 (福隆➔大里)`;
+      } else {
+        currentRouteConfig = ROUTE_4_CONFIG;
+        if (btnRoute4) {
+          btnRoute4.className = "route-switch-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-[#1E5B6E] text-white shadow-sm ring-1 ring-white/30";
+        }
+        if (badgeIndicator) {
+          badgeIndicator.className = "text-xs bg-[#1E5B6E] text-cream-50 font-semibold px-2.5 py-0.5 rounded-full shadow-xs transition-colors";
+        }
+        if (mapTitle) mapTitle.textContent = "全線步道路網導覽圖（逆向穿越拓撲示意）";
+        if (mapBadge) mapBadge.innerHTML = `<i class="fa-solid fa-compass text-[11px] mr-1"></i> 東南往西北向 (大里➔福隆)`;
       }
 
       if (gmapsLink) {
@@ -1710,7 +1344,7 @@
       renderWaypoints();
       renderTransitTab();
 
-      showToast(`已成功切換至【${currentRouteConfig.name}】`, 'fa-route');
+      showToast(`已切換至【${currentRouteConfig.name}】`, 'fa-route');
     }
 
     function calculateSegmentTimes() {
@@ -1745,28 +1379,28 @@
 
       container.innerHTML = segments.map((wp, idx) => {
         const isChecked = checkedWaypoints.has(wp.id);
-        const timeFromStart = wp.currentTotalMinutes === 0 ? "起點" : `+${formatDuration(wp.currentTotalMinutes)}`;
+        const timeFromStart = wp.currentTotalMinutes === 0 ? "起點出發" : `+${formatDuration(wp.currentTotalMinutes)}`;
         
         return `
-          <div class="waypoint-card bg-cream-50 rounded-2xl border ${isChecked ? 'border-forest bg-forest-pale/40' : 'border-cream-300'} p-3.5 shadow-2xs hover:border-rust transition cursor-pointer" data-id="${wp.id}">
+          <div class="waypoint-card bg-cream-50 rounded-2xl border ${isChecked ? 'border-forest bg-forest-pale/40' : 'border-cream-300'} p-3.5 shadow-2xs hover:border-ocean transition cursor-pointer" data-id="${wp.id}">
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-start gap-2.5">
-                <button class="check-wp-btn w-6 h-6 mt-0.5 rounded-full border-2 ${isChecked ? 'bg-forest border-forest text-cream-50' : 'border-taupe-light text-transparent hover:border-forest'} flex items-center justify-center transition" data-id="${wp.id}" aria-label="標記此站點為已完成">
+                <button class="check-wp-btn w-6 h-6 mt-0.5 rounded-full border-2 ${isChecked ? 'bg-forest border-forest text-cream-50' : 'border-taupe-light text-transparent hover:border-forest'} flex items-center justify-center transition" data-id="${wp.id}" title="標記完成打卡">
                   <i class="fa-solid fa-check text-[11px]"></i>
                 </button>
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="text-xs font-bold px-2 py-0.5 rounded-md ${idx === 0 || idx === segments.length - 1 ? 'bg-rust-pale text-rust-dark' : 'bg-cream-200 text-charcoal'}">${wp.badge}</span>
+                    <span class="text-xs font-bold px-2 py-0.5 rounded-md ${idx === 0 || idx === segments.length - 1 ? 'bg-ocean-pale text-ocean-dark' : 'bg-cream-200 text-charcoal'}">${wp.badge}</span>
                     <h4 class="font-bold text-sm text-charcoal">${idx + 1}. ${wp.name}</h4>
                   </div>
                   <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-taupe mt-1">
-                    <span><i class="fa-solid fa-mountain mr-1 text-forest"></i>標高 <strong>${wp.alt}m</strong></span>
+                    <span><i class="fa-solid fa-mountain mr-1 text-ocean"></i>標高 <strong>${wp.alt}m</strong></span>
                     <span><i class="fa-solid fa-location-arrow mr-1 text-rust"></i>累計 <strong>${wp.cumDist}km</strong></span>
-                    <span class="text-forest font-semibold"><i class="fa-regular fa-clock mr-1"></i>${timeFromStart}</span>
+                    <span class="text-ocean font-semibold"><i class="fa-regular fa-clock mr-1"></i>${timeFromStart}</span>
                   </div>
                 </div>
               </div>
-              <button class="focus-map-btn text-taupe hover:text-rust p-1 rounded-lg transition" title="於地圖上定位" data-id="${wp.id}" aria-label="定位此站點">
+              <button class="focus-map-btn text-taupe hover:text-ocean p-1 rounded-lg transition" title="於地圖上定位" data-id="${wp.id}">
                 <i class="fa-solid fa-crosshairs text-sm"></i>
               </button>
             </div>
@@ -1808,10 +1442,10 @@
       document.querySelectorAll('.waypoint-card').forEach(card => {
         const id = parseInt(card.getAttribute('data-id'), 10);
         if (id === wpId) {
-          card.classList.add('ring-2', 'ring-forest', 'bg-forest-pale/50');
+          card.classList.add('ring-2', 'ring-ocean', 'bg-ocean-pale/50');
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
-          card.classList.remove('ring-2', 'ring-forest', 'bg-forest-pale/50');
+          card.classList.remove('ring-2', 'ring-ocean', 'bg-ocean-pale/50');
         }
       });
 
@@ -1861,7 +1495,7 @@
           : "border-cream-300 bg-cream-100";
 
         return `
-          <div class="flex items-start gap-3 p-3 rounded-xl border ${borderClass} shadow-2xs hover:border-rust transition">
+          <div class="flex items-start gap-3 p-3 rounded-xl border ${borderClass} shadow-2xs hover:border-ocean transition">
             <div class="w-8 h-8 rounded-lg ${item.isOptional ? 'bg-mustard-pale text-mustard' : 'bg-cream-200 text-forest'} flex items-center justify-center shrink-0 mt-0.5">
               <i class="fa-solid ${item.icon} text-sm"></i>
             </div>
@@ -1922,94 +1556,30 @@
     function setupPaceSlider() {
       const slider = document.getElementById('pace-slider');
       const label = document.getElementById('speed-label');
+      const badge = document.getElementById('speed-badge');
+      const icon = document.getElementById('speed-icon');
       const resetBtn = document.getElementById('pace-reset-btn');
 
-      const paceConfig = {
-        '0.7': {
-          title: '勇腳馬（1.5x倍速）',
-          thumbColor: '#DC2626',
-          bg: '#FEF2F2',
-          border: '#FCA5A5',
-          text: '#991B1B',
-          icon: 'fa-fire'
-        },
-        '0.8': {
-          title: '神行太保（1.2x倍速）',
-          thumbColor: '#EA580C',
-          bg: '#FFF7ED',
-          border: '#FDBA74',
-          text: '#9A3412',
-          icon: 'fa-bolt'
-        },
-        '0.9': {
-          title: '燥乾那杯（1.1x倍速）',
-          thumbColor: '#F59E0B',
-          bg: '#FFFBEB',
-          border: '#FCD34D',
-          text: '#92400E',
-          icon: 'fa-person-running'
-        },
-        '1.0': {
-          title: '紫紅外套退休人士（1.0x倍速）',
-          thumbColor: '#CA8A04',
-          bg: '#FEFCE8',
-          border: '#FDE047',
-          text: '#854D0E',
-          icon: 'fa-person-walking'
-        },
-        '1.1': {
-          title: '悠哉散步（0.9x倍速）',
-          thumbColor: '#0EA5E9',
-          bg: '#F0F9FF',
-          border: '#7DD3FC',
-          text: '#075985',
-          icon: 'fa-water'
-        },
-        '1.2': {
-          title: '拍照休閒組（0.8x倍速）',
-          thumbColor: '#3B82F6',
-          bg: '#EFF6FF',
-          border: '#93C5FD',
-          text: '#1E40AF',
-          icon: 'fa-camera'
-        },
-        '1.3': {
-          title: '不要急慢慢走（0.7x倍速）',
-          thumbColor: '#6366F1',
-          bg: '#EEF2FF',
-          border: '#A5B4FC',
-          text: '#3730A3',
-          icon: 'fa-cloud'
-        },
-        '1.4': {
-          title: '不要催我有在走（0.6x倍速）',
-          thumbColor: '#8B5CF6',
-          bg: '#F5F3FF',
-          border: '#C4B5FD',
-          text: '#5B21B6',
-          icon: 'fa-feather'
-        },
-        '1.5': {
-          title: '有在前進就很厲害（0.5x倍速）',
-          thumbColor: '#6B21A8',
-          bg: '#FAF5FF',
-          border: '#D8B4FE',
-          text: '#581C87',
-          icon: 'fa-snowflake'
-        }
+      const paceInfo = {
+        '0.7': { text: '神行太保（1.4x倍速）', icon: 'fa-fire-flame-curved', class: 'bg-red-100 text-red-800 border-red-300' },
+        '0.8': { text: '勇腳疾行（1.25x倍速）', icon: 'fa-bolt', class: 'bg-orange-100 text-orange-800 border-orange-300' },
+        '0.9': { text: '健步如飛（1.1x倍速）', icon: 'fa-person-running', class: 'bg-amber-100 text-amber-800 border-amber-300' },
+        '1.0': { text: '標準步調（1.0x倍速）', icon: 'fa-person-walking', class: 'bg-emerald-100 text-emerald-800 border-emerald-300' },
+        '1.1': { text: '悠哉散步（0.9x倍速）', icon: 'fa-person-hiking', class: 'bg-teal-100 text-teal-800 border-teal-300' },
+        '1.2': { text: '攝影休閒（0.8x倍速）', icon: 'fa-camera', class: 'bg-sky-100 text-sky-800 border-sky-300' },
+        '1.3': { text: '慢活賞景（0.75x倍速）', icon: 'fa-leaf', class: 'bg-indigo-100 text-indigo-800 border-indigo-300' },
+        '1.4': { text: '愜意慢行（0.7x倍速）', icon: 'fa-shoe-prints', class: 'bg-purple-100 text-purple-800 border-purple-300' },
+        '1.5': { text: '有在走就好（0.65x倍速）', icon: 'fa-snowflake', class: 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-300' }
       };
 
       const updatePace = (val) => {
         currentMultiplier = parseFloat(val);
         const key = currentMultiplier.toFixed(1);
-        const cfg = paceConfig[key] || paceConfig['1.0'];
-
-        slider.style.setProperty('--slider-thumb-color', cfg.thumbColor);
-
-        label.innerHTML = `<i class="fa-solid ${cfg.icon} mr-1.5"></i>${cfg.title}`;
-        label.style.backgroundColor = cfg.bg;
-        label.style.borderColor = cfg.border;
-        label.style.color = cfg.text;
+        const info = paceInfo[key] || { text: `自訂 (${key}x)`, icon: 'fa-person-walking', class: 'bg-cream-200 text-charcoal' };
+        
+        label.textContent = info.text;
+        badge.className = `text-xs font-bold px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 shadow-xs border ${info.class}`;
+        icon.className = `fa-solid ${info.icon}`;
 
         renderWaypoints();
       };
@@ -2022,16 +1592,14 @@
         slider.value = "1.0";
         updatePace("1.0");
       });
-
-      updatePace(slider.value);
     }
 
     function generateGPX() {
       let gpxXml = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="2026今展福委會陽明山經典縱走指南" xmlns="http://www.topografix.com/GPX/1/1">
+<gpx version="1.1" creator="2026今展福委會秋系戶外手札" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>${currentRouteConfig.name} - ${currentRouteConfig.subtitle}</name>
-    <desc>陽明山經典秋芒健行離線 GPX 航點檔案 (${currentRouteConfig.name})</desc>
+    <desc>經典秋芒健行離線 GPX 航點檔案 (${currentRouteConfig.name})</desc>
     <time>${new Date().toISOString()}</time>
   </metadata>
   <rte>
@@ -2049,24 +1617,17 @@
       gpxXml += `  </rte>
 </gpx>`;
 
-      try {
-        const blob = new Blob([gpxXml], { type: 'application/gpx+xml;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `hiking_${currentRouteConfig.id}_${new Date().toISOString().slice(0,10)}.gpx`;
-        document.body.appendChild(a);
-        a.click();
-        
-        setTimeout(() => {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 300);
+      const blob = new Blob([gpxXml], { type: 'application/gpx+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `hiking_${currentRouteConfig.id}_${new Date().toISOString().slice(0,10)}.gpx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
 
-        showToast(`已成功匯出【${currentRouteConfig.name}】GPX 軌跡檔！`, 'fa-compass');
-      } catch (err) {
-        showToast('匯出失敗，請重試', 'fa-triangle-exclamation');
-      }
+      showToast(`已成功匯出【${currentRouteConfig.name}】GPX 軌跡檔！`, 'fa-compass');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -2081,16 +1642,12 @@
       const btnRoute1 = document.getElementById('btn-route-1');
       const btnRoute2 = document.getElementById('btn-route-2');
       const btnRoute3 = document.getElementById('btn-route-3');
+      const btnRoute4 = document.getElementById('btn-route-4');
 
-      if (btnRoute1) {
-        btnRoute1.addEventListener('click', () => switchRoute('route1'));
-      }
-      if (btnRoute2) {
-        btnRoute2.addEventListener('click', () => switchRoute('route2'));
-      }
-      if (btnRoute3) {
-        btnRoute3.addEventListener('click', () => switchRoute('route3'));
-      }
+      if (btnRoute1) btnRoute1.addEventListener('click', () => switchRoute('route1'));
+      if (btnRoute2) btnRoute2.addEventListener('click', () => switchRoute('route2'));
+      if (btnRoute3) btnRoute3.addEventListener('click', () => switchRoute('route3'));
+      if (btnRoute4) btnRoute4.addEventListener('click', () => switchRoute('route4'));
 
       const calorieLink = document.querySelector('a[href="#calorie-standard-note"]');
       if (calorieLink) {
@@ -2111,36 +1668,30 @@
 
       const copyMapBtn = document.getElementById('btn-copy-map-link');
       if (copyMapBtn) {
-        copyMapBtn.addEventListener('click', async () => {
+        copyMapBtn.addEventListener('click', () => {
           const url = currentRouteConfig.googleMapsUrl;
-          let copied = false;
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            try {
-              await navigator.clipboard.writeText(url);
-              copied = true;
-            } catch (e) {
-              copied = false;
-            }
-          }
-          if (!copied) {
-            const tempInput = document.createElement('input');
-            tempInput.value = url;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            try {
-              document.execCommand('copy');
-              copied = true;
-            } catch (err) {
-              copied = false;
-            }
-            document.body.removeChild(tempInput);
-          }
-          if (copied) {
-            showToast(`已複製【${currentRouteConfig.name}】Google 地圖連結！`, 'fa-link');
+            navigator.clipboard.writeText(url).then(() => {
+              showToast(`已複製【${currentRouteConfig.name}】Google 地圖連結！`, 'fa-link');
+            }).catch(() => fallbackCopy(url));
           } else {
-            showToast('複製失敗，請手動複製網址', 'fa-triangle-exclamation');
+            fallbackCopy(url);
           }
         });
+      }
+
+      function fallbackCopy(text) {
+        const tempInput = document.createElement('input');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          showToast(`已複製【${currentRouteConfig.name}】Google 地圖連結！`, 'fa-link');
+        } catch (err) {
+          showToast('複製失敗，請手動複製', 'fa-triangle-exclamation');
+        }
+        document.body.removeChild(tempInput);
       }
 
       const printBtn = document.getElementById('btn-print');
@@ -2149,16 +1700,6 @@
           window.print();
         });
       }
-
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          if (elevationChartInstance) {
-            elevationChartInstance.resize();
-          }
-        }, 150);
-      });
     });
   </script>
 </body>
